@@ -1,0 +1,21 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="formadditem">
+    <br>
+    <hi>
+        <p><strong>Add Item Form</strong></p>
+    </hi>
+    <form class="additemsubmission" action="additemconfirmation" method="POST">
+        {% csrf_token %}
+        <div class="row margintop">
+            <p><input type="text" name='item_id' placeholder='Item id' class="form-control" /></p>
+            <p><input type="text" name="item_name" placeholder='Item name' class="formcontrol"></p>
+            <p><input type="text" name="item_description" placeholder='Item description' class="form-control"></p>
+        </div>
+        <div class="margintop">
+            <button type="submit" class="btn btn-success btn-square buttonsize">Submit</button>
+            <a class="btn btn-danger btn-square buttonsize" href="/menu">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

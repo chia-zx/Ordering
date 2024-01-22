@@ -1,0 +1,17 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="formadditem">
+    <br>
+    <hi>
+        <p><strong>Item Added!</strong></p>
+    </hi>
+    <p>Item ID: {{ item_id }}</p>
+    <p>Item Name: {{ item_name }}</p>
+    <p>Item Description: {{ item_description }}</p>
+    <form class="additemsubmission margintop" action="additemdetails" method="POST">
+        <div class="margintop">
+            <a class="btn btn-danger btn-square buttonsize" href="/menu">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

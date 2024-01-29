@@ -2,9 +2,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.http import HttpRequest
-from django.template import RequestContext
 from datetime import datetime
-
 from django.contrib.auth.decorators import login_required
 
 def home(request):
@@ -50,11 +48,17 @@ def about(request):
 
 @login_required
 def menu(request):
-    check_employee = request.user.groups.filter(name='employee').exists()
+    is_vendor = request.user.groups.filter(name='Vendor').exists()
+    is_customer = request.user.groups.filter(name='Customer').exists()
+    is_delivery_person = request.user.groups.filter(name='DeliveryPerson').exists()
+    is_manager = request.user.groups.filter(name='SystemManager').exists()
 
     context = {
             'title':'Main Menu',
-            'is_employee': check_employee,
+            'is_vendor': is_vendor,
+            'is_customer': is_customer,
+            'is_delivery_person': is_delivery_person,
+            'is_manager': is_manager,
             'year':datetime.now().year,
         }
     context['user'] = request.user

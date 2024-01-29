@@ -1,7 +1,7 @@
 {% extends "app/layout.html" %}
 {% block content %}
-<div class=additemform>
-    <h2>Food added</h2>
+<div class=updateitemform>
+    <h2>Food updated</h2>
     <br>
     <div class=content>
         <div class=item-container>
@@ -29,11 +29,11 @@
             <span class="separator">:</span>
             <p>{{ food.food_available }}</p>
         </div>
-        <br>
     </div>
-        <div class=button-container>
-            <button class = "back-button" onclick="location.href='{% url 'displayitem' %}'">Back</a>
-        </div>
+    <br>
+    <div class=button-container>
+        <button class = "back-button" onclick="location.href='{% url 'displayitem' %}'">Back</a>
+    </div>
 </div>
 
 <style>
@@ -96,6 +96,7 @@
     .back-button:hover {
         background-color: #2980b9;
     }
+
 
 </style>
 {% endblock %}

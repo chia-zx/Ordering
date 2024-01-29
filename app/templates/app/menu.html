@@ -2,60 +2,142 @@
 
 {% block content %}
 
-<div>
+<div class=menu>
     <br />
-    {% if is_employee %}
-    <h2>Employee Menu</h2>
+    {% if is_vendor %}
+    <h2>Vendor Menu</h2>
+    {% elif is_customer %}
+    <h2>Customer Menu</h2>
+    {% elif is_delivery_person %}
+    <h2>Delivery Person Menu</h2>
     {% elif is_manager %}
-    <h2>Manager Menu</h2>
+    <h2>System Manager Menu</h2>
     {% endif %}
 
     <br />
-    <table>
-        {% if is_employee %}
-        <tr>
-            <td>
-                <form class="margintop" action='additemform' method='GET'>
-                    <button type="submit" class="btn btn-info">Add Item</button><br />
-                </form>
-            </td>
-        </tr>
+    <div class=options-container>
+        <table>
+            {% if is_vendor %}
+            <tr>
+                <td>
+                    <form class="margintop" action='displayitem' method='GET'>
+                        <button type="submit" class="btn btn-info waves-effect">Food Menu</button><br />
+                    </form>
+                </td>
+            </tr>
 
-        <tr>
-            <td>
-                <form class="margintop" action='module2' method='GET'>
-                    <button type="submit" class="btn btn-outline-info waves-effect">Module 2</button><br />
-                </form>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <form class="margintop" action='module2' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">Module 2</button><br />
+                    </form>
+                </td>
+            </tr>
 
-        {% elif is_manager %}
-        <tr>
-            <td>
-                <form class="margintop" action='module3' method='GET'>
-                    <button type="submit" class="btn btn-info">Module 3</button><br />
-                </form>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <form class="margintop" action='module2' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">Module 2</button><br />
+                    </form>
+                </td>
+            </tr>
 
-        <tr>
-            <td>
-                <form class="margintop" action='module4' method='GET'>
-                    <button type="submit" class="btn btn-outline-info waves-effect">Module 4</button><br />
-                </form>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <form class="margintop" action='module2' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">Module 2</button><br />
+                    </form>
+                </td>
+            </tr>
 
-        {% else %}
+            {% elif is_customer %}
+            <tr>
+                <td>
+                    <form class="margintop" action='module3' method='GET'>
+                        <button type="submit" class="btn btn-info">Module 3</button><br />
+                    </form>
+                </td>
+            </tr>
 
-        <tr>
-            <td>
-                <p>Undefined User.</p>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <form class="margintop" action='module4' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">Module 4</button><br />
+                    </form>
+                </td>
+            </tr>
 
-        {% endif %}
-    </table>
+            {% elif is_delivery_person %}
+            <tr>
+                <td>
+                    <form class="margintop" action='module3' method='GET'>
+                        <button type="submit" class="btn btn-info">Module 4</button><br />
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <form class="margintop" action='module4' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">Module 5</button><br />
+                    </form>
+                </td>
+            </tr>
+
+            {% elif is_manager %}
+            <tr>
+                <td>
+                    <form class="margintop" action='module3' method='GET'>
+                        <button type="submit" class="btn btn-info">Module 6</button><br />
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <form class="margintop" action='module4' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">Module 7</button><br />
+                    </form>
+                </td>
+            </tr>
+
+            {% else %}
+
+            <tr>
+                <td>
+                    <p>Undefined User.</p>
+                </td>
+            </tr>
+
+            {% endif %}
+        </table>
+    </div>
 </div>
+
+<style>
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0; /* Remove default margin to ensure buttons are centered perfectly */
+    }
+
+    h2 {
+        font-size: 3em; 
+        font-weight: bold;
+        color: #ff6c47; 
+        margin-top: 30px;
+    }
+
+    .btn {
+        margin-bottom: 20px;
+        width: 200px;
+        height: 50px;
+        font-size: 16px;
+    }
+
+</style>
 
 {% endblock %}

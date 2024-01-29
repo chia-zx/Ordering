@@ -1,12 +1,17 @@
 {% extends "app/layout.html" %}
 {% block content %}
-<div class="formadditem">
+<div class="formupdateitem">
     <br>
     <hi>
-        <h2>Add Item Form<h2>
+        <h2>Update Item Form<h2>
     </hi>
-    <form class="additemsubmission" action="additemconfirmation" method="POST">
+    <form class="updateitemsubmission" action="updateitemconfirmation" method="POST">
         {% csrf_token %}
+        <div class="form-container">
+            <label for="food_id">Food ID</label>
+            <span class="separator">:</span>
+            <input type="text" id="food_id" value="{{ food.food_id }}" readonly>
+        </div>
         {% for field in form %}
         <div class=form-container>
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
@@ -18,10 +23,10 @@
         <div class="button-container">
             <a class="btn btn-danger btn-square buttonsize" href="/menu">Cancel</a>
             <input type="reset" class="btn btn-light btn-square buttonsize" value="Reset">
-            <form method="POST" action="{% url 'additem_confirmation' %}">
+            <form method="POST" action="{% url 'updateitem_confirmation' %}">
                 {% csrf_token %}
                 <input type="hidden" name="food_id" value="{{ food.food_id }}">
-                <button type="submit" class="btn btn-success btn-square buttonsize">Add</button>
+                <button type="submit" class="btn btn-success btn-square buttonsize">Update</button>
             </form>
         </div>
     </form>
@@ -29,7 +34,7 @@
 
 <style>
 
-    .formadditem {
+    .formupdateitem {
         display: flex;
         flex-direction: column;
         width: 2000px;
@@ -42,7 +47,7 @@
         margin-bottom: 50px;
     }
 
-    .additemsubmission {
+    .updateitemsubmission {
         width: 100%; 
     }
 
@@ -69,6 +74,12 @@
         box-sizing: inline-box;
         margin-left: 55px;
         font-size: 15px;
+    }
+
+    .form-container input#food_id {
+        border: none;
+        outline: none;
+        font-size: 16px;
     }
 
     .form-container input[type="number"]::-webkit-inner-spin-button,

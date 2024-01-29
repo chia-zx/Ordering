@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'additem'
+    'additem',
+    'displayitem',
+    'updateitem',
+    'deleteitem',
 ]
 
 MIDDLEWARE = [

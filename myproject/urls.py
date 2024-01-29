@@ -20,20 +20,14 @@ import django.contrib.auth.views
 from django.contrib.auth.views import LoginView, LogoutView
 from datetime import datetime
 from additem import views as additem_views
+from displayitem import views as displayitem_views
+from updateitem import views as updateitem_views
+from deleteitem import views as deleteitem_views
+
 admin.autodiscover()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # re_path(r'^$', views.home, name='home'),
-    # re_path(r'^contact$', views.contact, name='contact'),
-    # re_path(r'^about$', views.about, name='about'),
-    # re_path(r'^login/$',
-    #     LoginView.as_view(template_name = 'app/login.html'),
-    #     name='login'),
-    # re_path(r'^logout$',
-    #     LogoutView.as_view(template_name = 'app/index.html'),
-    #     name='logout'),
-    # re_path(r'^menu$', views.menu, name='menu'),
 
     re_path(r'^$', main_views.home, name='home'),
     re_path(r'^contact$', main_views.contact, name='contact'),
@@ -48,6 +42,12 @@ urlpatterns = [
     re_path(r'^additemform$', additem_views.additemform, name='additem_form'),
     re_path(r'^additemconfirmation$', additem_views.additemconfirmation, 
             name='additem_confirmation'),
-
+    re_path(r'^displayitem$', displayitem_views.display_all_items, name='displayitem'),
+    re_path(r'^updateitemform$', updateitem_views.updateitemform, name='updateitem_form'),
+    re_path(r'^updateitemconfirmation$', updateitem_views.updateitemconfirmation, 
+            name='updateitem_confirmation'),
+    re_path(r'^deleteitemform$', deleteitem_views.deleteitem_form, name='deleteitemform'),
+    re_path(r'^deleteitemconfirmation$', deleteitem_views.deleteitem_confirmation, name='deleteitem_confirmation'),
+    
 
 ]

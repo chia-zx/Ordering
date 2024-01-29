@@ -1,7 +1,9 @@
 {% extends "app/layout.html" %}
 {% block content %}
-<div class=additemform>
-    <h2>Food added</h2>
+<div class=deleteitemform>
+    <h2>Delete Confirmation</h2>
+    <br>
+    <h5>Do you want to delete the food item?</h5>
     <br>
     <div class=content>
         <div class=item-container>
@@ -29,11 +31,16 @@
             <span class="separator">:</span>
             <p>{{ food.food_available }}</p>
         </div>
-        <br>
     </div>
-        <div class=button-container>
-            <button class = "back-button" onclick="location.href='{% url 'displayitem' %}'">Back</a>
-        </div>
+    <br>
+    <div class=button-container>
+        <button class = "cancel-button" onclick="location.href='{% url 'displayitem' %}'">Cancel</a>
+        <form method="POST" action="{% url 'deleteitem_confirmation' %}">
+            {% csrf_token %}
+            <input type="hidden" name="food_id" value="{{ food.food_id }}">
+            <button class="delete-button">Delete</button>
+        </form>
+    </div>
 </div>
 
 <style>
@@ -80,11 +87,12 @@
         display: flex;
         flex-direction: row;  
         justify-content: flex-start; 
-        margin-left: 285px; 
+        margin-left: 185px; 
         margin-top: 35px;
     }
 
-    .back-button {
+
+    .cancel-button {
         background-color: #3498db;
         color: white;
         padding: 5px 10px;
@@ -93,8 +101,21 @@
         margin: 10px;
     }
 
-    .back-button:hover {
+    .cancel-button:hover {
         background-color: #2980b9;
+    }
+
+    .delete-button {
+        background-color: #e74c3c;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        margin: 10px;
+    }
+
+    .delete-button:hover {
+        background-color: #c0392b;
     }
 
 </style>

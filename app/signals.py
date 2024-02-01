@@ -49,6 +49,5 @@ def create_profile(sender, instance, created, **kwargs):
                 user=instance,
                 defaults={
                     'manager_name': None,
-                    'manager_phone': None
                 }
             )

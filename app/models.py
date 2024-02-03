@@ -12,7 +12,7 @@ class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     customer_id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     customer_name = models.CharField(max_length=30, null=True)
-    customer_phone = models.IntegerField(null=True)
+    customer_phone = models.CharField(max_length=20, null=True)
     customer_address = models.CharField(max_length=200, null=True)
     customer_spent = models.DecimalField(default=0, max_digits=12, decimal_places=2)
     def __str__(self):
@@ -22,7 +22,7 @@ class Vendor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     vendor_id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     vendor_name = models.CharField(max_length=30, null=True)
-    vendor_phone = models.IntegerField(null=True)
+    vendor_phone = models.CharField(max_length=20, null=True)
     vendor_address = models.CharField(max_length=200, null=True)
     vendor_revenue = models.DecimalField(default=0, max_digits=12, decimal_places=2)
     def __str__(self):
@@ -32,7 +32,7 @@ class DeliveryPerson(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     deliveryperson_id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     deliveryperson_name = models.CharField(max_length=30, null=True)
-    deliveryperson_phone = models.IntegerField(null=True)
+    deliveryperson_phone = models.CharField(max_length=20, null=True)
     deliveryperson_address = models.CharField(max_length=200, null=True)
     def __str__(self):
         return str(self.deliveryperson_id)

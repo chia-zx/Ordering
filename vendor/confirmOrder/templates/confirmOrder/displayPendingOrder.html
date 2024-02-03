@@ -4,28 +4,32 @@
     <div class=top>
         <h1>Pending Order</h1>
     </div>
-    {% for order in orders %}
-        <div class = 'item-container'>
-            <strong>ID : </strong> {{ order.order_id }} <br>
-            <strong>Date : </strong> {{ order.order_date }} <br>
-            <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
-            <strong>Customer : </strong> {{ order.customer_id }} <br>
-            <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
-            <br>
-            <strong>Status : </strong> {{ order.order_status }} <br>
+    {% if orders %}
+        {% for order in orders %}
+            <div class = 'item-container'>
+                <strong>ID : </strong> {{ order.order_id }} <br>
+                <strong>Date : </strong> {{ order.order_date }} <br>
+                <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+                <strong>Customer : </strong> {{ order.customer_id }} <br>
+                <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
+                <br>
+                <strong>Status : </strong> {{ order.order_status }} <br>
 
-            <form method="POST" action="{% url 'acceptOrderForm' %}">
-                {% csrf_token %}
-                <input type="hidden" name="order_id" value="{{ order.order_id }}">
-                <button type="submit" class="accept-button">Accept</button>
-            </form>
-            <form method="POST" action="{% url 'rejectOrderForm' %}">
-                {% csrf_token %}
-                <input type="hidden" name="order_id" value="{{ order.order_id }}">
-                <button type="submit" class="reject-button">Reject</button>
-            </form>
-        </div>
-    {% endfor %}
+                <form method="POST" action="{% url 'acceptOrderForm' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                    <button type="submit" class="accept-button">Accept</button>
+                </form>
+                <form method="POST" action="{% url 'rejectOrderForm' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                    <button type="submit" class="reject-button">Reject</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h4><strong>No Order Pending at this moment.</strong><h4>
+    {% endif %}
 </div>
 
 <style>
@@ -39,6 +43,11 @@
 
     .top h1 {
         margin: 35px;
+    }
+
+    h4 {
+        margin: 35px;
+        color: red;
     }
 
     .item-container {

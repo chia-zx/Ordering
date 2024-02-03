@@ -9,25 +9,29 @@
             <button type="submit" class="add-button">Add item</button>
         </form>
     </div>
-    {% for food in foods %}
-        <div class = 'item-container'>
-            <strong>ID : </strong> {{ food.food_id }} <br>
-            <strong>Name : </strong> {{ food.food_name }} <br>
-            <strong>Description : </strong> {{ food.food_description }} <br>
-            <strong>Price : </strong> {{ food.food_price }} <br>
-            <strong>Available : </strong> {{ food.food_available }} <br>
-            <form method="POST" action="{% url 'updateitem_form' %}">
-                {% csrf_token %}
-                <input type="hidden" name="food_id" value="{{ food.food_id }}">
-                <button type="submit" class="update-button">Update</button>
-            </form>
-            <form method="POST" action="{% url 'deleteitemform' %}">
-                {% csrf_token %}
-                <input type="hidden" name="food_id" value="{{ food.food_id }}">
-                <button type="submit" class="delete-button">Delete</button>
-            </form>
-        </div>
-    {% endfor %}
+    {% if foods %}
+        {% for food in foods %}
+            <div class = 'item-container'>
+                <strong>ID : </strong> {{ food.food_id }} <br>
+                <strong>Name : </strong> {{ food.food_name }} <br>
+                <strong>Description : </strong> {{ food.food_description }} <br>
+                <strong>Price : </strong> {{ food.food_price }} <br>
+                <strong>Available : </strong> {{ food.food_available }} <br>
+                <form method="POST" action="{% url 'updateitem_form' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="food_id" value="{{ food.food_id }}">
+                    <button type="submit" class="update-button">Update</button>
+                </form>
+                <form method="POST" action="{% url 'deleteitemform' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="food_id" value="{{ food.food_id }}">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h4><strong>Food Menu is empty at this moment.</strong><h4>
+    {% endif %}
 </div>
 
 <style>
@@ -41,6 +45,11 @@
 
     .top h1 {
         margin: 35px;
+    }
+
+    h4 {
+        margin: 35px;
+        color: red;
     }
 
     .add-button {

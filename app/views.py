@@ -7,7 +7,6 @@ from app.models import Customer, Vendor, DeliveryPerson, SystemManager
 
 # Create your views here.
 
-
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)

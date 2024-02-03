@@ -1,8 +1,8 @@
 {% extends "app/layout.html" %}
 {% block content %}
 <div class="displayrevenue">
-    <h2>Revenue</h2><br>
-    <h4>Total Revenue : RM {{ vendor.vendor_revenue }}</h4>
+    <h2>Revenue</h2>
+    <h3><strong>Total Revenue : RM {{ vendor.vendor_revenue }}</strong></h3>
 
     {% if getYear %}
     <p>Total Revenue for {% if getMonth %}{{ getMonth }}{% endif %} {{ getYear }} : RM {{ revenue }}</p>
@@ -28,16 +28,23 @@
         <button type="submit">Sort</button>
     </form>
 
-    {% for order in orders %}
-        <div class=item-container>
-            <strong>ID : </strong> {{ order.order_id }} <br>
-            <strong>Date : </strong> {{ order.order_date }} <br>
-            <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
-        </div>
-    {% endfor %}
+    {% if orders %}
+        {% for order in orders %}
+            <div class=item-container>
+                <strong>ID : </strong> {{ order.order_id }} <br>
+                <strong>Date : </strong> {{ order.order_date }} <br>
+                <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+            </div>
+        {% endfor %}
+    {% else %}
+        <br><h4><strong>No Completed Order in {% if getMonth %}{{ getMonth }}{% endif %} {{ getYear }}.</strong><h4>
+    {% endif %}
 </div>
 
 <style>
+    h4 {
+        color: red;
+    }
 
     .item-container {
         border: 3px solid black;

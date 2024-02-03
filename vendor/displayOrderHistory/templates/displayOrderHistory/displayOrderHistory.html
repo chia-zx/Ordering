@@ -14,17 +14,21 @@
         <button type="submit">Sort</button>
     </form>
 
-    {% for order in orders %}
-        <div class = 'item-container'>
-            <strong>ID : </strong> {{ order.order_id }} <br>
-            <strong>Date : </strong> {{ order.order_date }} <br>
-            <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
-            <strong>Customer : </strong> {{ order.customer_id }} <br>
-            <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
-            <br>
-            <strong>Status : </strong> {{ order.order_status }} <br>
-        </div>
-    {% endfor %}
+    {% if orders %}
+        {% for order in orders %}
+            <div class = 'item-container'>
+                <strong>ID : </strong> {{ order.order_id }} <br>
+                <strong>Date : </strong> {{ order.order_date }} <br>
+                <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+                <strong>Customer : </strong> {{ order.customer_id }} <br>
+                <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
+                <br>
+                <strong>Status : </strong> {{ order.order_status }} <br>
+            </div>
+        {% endfor %}
+    {% else %}
+        <br><h4><strong>No Order History found.</strong><h4>
+    {% endif %}
 </div>
 
 <style>
@@ -38,6 +42,10 @@
 
     .top h1 {
         margin: 35px;
+    }
+
+    h4 {
+        color: red;
     }
 
     .add-button {

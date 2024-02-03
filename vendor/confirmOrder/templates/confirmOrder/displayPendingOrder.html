@@ -1,0 +1,87 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="all-order">
+    <div class=top>
+        <h1>Pending Order</h1>
+    </div>
+    {% for order in orders %}
+        <div class = 'item-container'>
+            <strong>ID : </strong> {{ order.order_id }} <br>
+            <strong>Date : </strong> {{ order.order_date }} <br>
+            <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+            <strong>Customer : </strong> {{ order.customer_id }} <br>
+            <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
+            <br>
+            <strong>Status : </strong> {{ order.order_status }} <br>
+
+            <form method="POST" action="{% url 'acceptOrderForm' %}">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                <button type="submit" class="accept-button">Accept</button>
+            </form>
+            <form method="POST" action="{% url 'rejectOrderForm' %}">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                <button type="submit" class="reject-button">Reject</button>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .top h1 {
+        margin: 35px;
+    }
+
+    .item-container {
+        border: 3px solid black;
+        margin: 35px;
+        overflow: hidden; /* Ensure that the box wraps around its content */
+        padding: 20px;
+        font-size: 17px;
+    }
+
+    .accept-button {
+        background-color: #3498db;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .accept-button:hover {
+        background-color: #2980b9;
+    }
+
+    .reject-button {
+        background-color: #e74c3c;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .reject-button:hover {
+        background-color: #c0392b;
+    }
+
+
+</style>
+
+{% endblock %}

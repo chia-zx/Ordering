@@ -1,5 +1,4 @@
 {% extends "app/layout.html" %}
-
 {% block content %}
 
 <div class="jumbotron">
@@ -9,9 +8,18 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Users</h2>
-        <p>
-            e0001 - employee
-        </p>
+        {% for customer in customers %}
+            <p>{{ customer.user.username }} - Customer</p>
+        {% endfor %}
+        {% for vendor in vendors %}
+            <p>{{ vendor.user.username }} - Vendor</p>
+        {% endfor %}
+        {% for deliveryperson in deliverypersons %}
+            <p>{{ deliveryperson.user.username }} - Delivery Person</p>
+        {% endfor %}
+        {% for manager in managers %}
+            <p>{{ manager.user.username }} - Manager</p>
+        {% endfor %}
     </div>
     <div class="col-md-4">
         <h2>Modules</h2>

@@ -1,0 +1,126 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class=rejectorderform>
+    <h2>Reject Confirm</h2>
+    <br>
+    <h5>Do you want to reject the following order?</h5>
+    <br>
+    <div class=content>
+        <div class=item-container>
+            <label for="order_id">Order  ID</label>
+            <span class="separator">:</span>
+            <p>{{ order.order_id }}</p>
+        </div>
+        <div class=item-container>
+            <label for="order_date">Date</label>
+            <span class="separator">:</span>
+            <p>{{ order.order_date }}</p>
+        </div>
+        <div class=item-container>
+            <label for="food_description">Total</label>
+            <span class="separator">:</span>
+            <p>RM {{ order.order_totalprice }}</p>
+        </div>
+        <div class=item-container>
+            <label for="customer">Customer</label>
+            <span class="separator">:</span>
+            <p>{{ order.customer_id }}</p>
+        </div>
+        <div class=item-container>
+            <label for="deliveryperson">Delivery Person</label>
+            <span class="separator">:</span>
+            <p>{{ order.deliveryperson_id }}</p>
+        </div>
+        <div class=item-container>
+            <label for="order_status">Status</label>
+            <span class="separator">:</span>
+            <p>{{ order.order_status }}</p>
+        </div>
+    </div>
+    <br>
+    <div class=button-container>
+        <button class = "back-button" onclick="location.href='{% url 'displayPendingOrder' %}'">Back</a>
+        <form method="POST" action="{% url 'rejectOrderConfirmation' %}">
+            {% csrf_token %}
+            <input type="hidden" name="order_id" value="{{ order.order_id }}">
+            <button class="reject-button">Reject</button>
+        </form>
+    </div>
+</div>
+
+<style>
+
+    h5 {
+        font-size: 17px;
+    }
+
+    .content {
+        border: 3px solid black;
+        padding: 30px;
+        width: 350px;
+    }
+
+    .item-container {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 3px;
+        align-items: center;
+    }
+
+    .item-container label {
+        font-size: 16px;
+        text-align: left;
+        margin-right: 10px;
+        width: 300px;
+    }
+
+    .item-container p {
+        width: 100%;
+        height: 50px;
+        box-sizing: inline-box;
+        margin-left: 20px;
+        font-size: 16px;
+        padding: 17px;
+    }
+
+    .separator {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: row;  
+        justify-content: flex-start; 
+        margin-left: 200px; 
+        margin-top: 25px;
+    }
+
+    .back-button {
+        background-color: #3498db;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        margin: 10px;
+    }
+
+    .back-button:hover {
+        background-color: #2980b9;
+    }
+
+    .reject-button {
+        background-color: #e74c3c;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        margin: 10px;
+    }
+
+    .reject-button:hover {
+        background-color: #c0392b;
+    }
+
+</style>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="displayrevenue">
+    <h2>Revenue</h2><br>
+    <h4>Total Revenue : RM {{ vendor.vendor_revenue }}</h4>
+
+    {% if getYear %}
+    <p>Total Revenue for {% if getMonth %}{{ getMonth }}{% endif %} {{ getYear }} : RM {{ revenue }}</p>
+    {% endif %}
+    <br>
+
+    <form method="GET" action="{% url 'displayRevenue' %}">
+        <label for="order_status">Select year:</label>
+        <select name="year" id="year">
+            <option value="" {% if not getYear %}selected{% endif %}>All</option>
+            {% for year in years_range %}
+                <option value="{{ year }}" {% if getYear == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="month">Select Month:</label>
+        <select name="month" id="month">
+            <option value="" {% if not getMonth %}selected{% endif %}>All</option>
+            {% for month in months_range %}
+                <option value="{{ month }}" {% if getMonth == month %}selected{% endif %}>{{ month }}</option>
+            {% endfor %}
+        </select>        
+        <button type="submit">Sort</button>
+    </form>
+
+    {% for order in orders %}
+        <div class=item-container>
+            <strong>ID : </strong> {{ order.order_id }} <br>
+            <strong>Date : </strong> {{ order.order_date }} <br>
+            <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+
+    .item-container {
+        border: 3px solid black;
+        margin: 35px;
+        overflow: hidden; /* Ensure that the box wraps around its content */
+        padding: 20px;
+        font-size: 17px;
+    }
+
+</style>
+
+{% endblock %}

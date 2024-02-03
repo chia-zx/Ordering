@@ -1,13 +1,22 @@
-from django.shortcuts import render, redirect
-
-# Create your views here.
 from django.http import HttpRequest
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from app.models import Customer, Vendor, DeliveryPerson, SystemManager
+
+# Create your views here.
+
 
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
+    users = User.objects.filter(is_active=1, is_superuser=0)
+    customers = Customer.objects.filter(user__in=users)
+    vendors = Vendor.objects.filter(user__in=users)
+    deliverypersons = DeliveryPerson.objects.filter(user__in=users)
+    managers = SystemManager.objects.filter(user__in=users)
+
     if request.user.is_authenticated:
         return(redirect('/menu'))
     else:
@@ -17,6 +26,11 @@ def home(request):
             {
                 'title':'Home Page',
                 'year': datetime.now().year,
+                'customers': customers,
+                'vendors': vendors,
+                'deliverypersons': deliverypersons,
+                'managers': managers,
+                'users': users,
             }
         )
 
@@ -28,7 +42,7 @@ def contact(request):
         'app/contact.html',
         {
             'title':'Contact',
-            'message':'Dr. Yeoh.',
+            'message':'Contact our support for assistance',
             'year':datetime.now().year,
         }
     )
@@ -40,8 +54,8 @@ def about(request):
         request,
         'app/about.html',
         {
-            'title':'ABC System',
-            'message':'This application processes ...',
+            'title':'Homecook Food Ordering System',
+            'message':'The feature in this system',
             'year':datetime.now().year,
         }
     )

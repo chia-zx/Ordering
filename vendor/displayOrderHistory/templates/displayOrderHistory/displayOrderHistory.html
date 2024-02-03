@@ -1,0 +1,70 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="all-order">
+    <h2>Order History</h2><br>
+
+    <form method="GET" action="{% url 'displayOrderHistory' %}">
+        <label for="order_status">Sort by Order Status:</label>
+        <select name="order_status" id="order_status">
+            <option value="" {% if not request.GET.order_status %}selected{% endif %}>All</option>
+            <option value="Completed" {% if request.GET.order_status == 'Completed' %}selected{% endif %}>Completed</option>
+            <option value="Cancelled" {% if request.GET.order_status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+            <option value="Rejected" {% if request.GET.order_status == 'Rejected' %}selected{% endif %}>Rejected</option>
+        </select>
+        <button type="submit">Sort</button>
+    </form>
+
+    {% for order in orders %}
+        <div class = 'item-container'>
+            <strong>ID : </strong> {{ order.order_id }} <br>
+            <strong>Date : </strong> {{ order.order_date }} <br>
+            <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+            <strong>Customer : </strong> {{ order.customer_id }} <br>
+            <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
+            <br>
+            <strong>Status : </strong> {{ order.order_status }} <br>
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .top h1 {
+        margin: 35px;
+    }
+
+    .add-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin-top: 60px;
+        margin-right: 35px;
+        border: none;
+        width: 110px;
+        height: 50px;
+    }
+    .add-button:hover {
+        background-color: #45a049;
+    }
+
+    .item-container {
+        border: 3px solid black;
+        margin: 35px;
+        overflow: hidden; /* Ensure that the box wraps around its content */
+        padding: 20px;
+        font-size: 17px;
+    }
+
+</style>
+
+{% endblock %}

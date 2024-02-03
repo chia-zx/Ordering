@@ -38,10 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'additem',
-    'displayitem',
-    'updateitem',
-    'deleteitem',
+    'vendor.additem',
+    'vendor.displayitem',
+    'vendor.updateitem',
+    'vendor.deleteitem',
+    'vendor.confirmOrder',
+    'vendor.updateOrderStatus',
+    'vendor.displayOrderHistory',
+    'vendor.displayRevenue',
 ]
 
 MIDDLEWARE = [

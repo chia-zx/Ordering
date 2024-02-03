@@ -82,10 +82,20 @@ class CartItem(models.Model):
             return None
 
 class Order(models.Model):
+    STATUS = [
+        ('Pending', 'Pending'),
+        ('Preparing', 'Preparing'),
+        ('Ready', 'Ready'),
+        ('Delivering', 'Delivering'),
+        ('Completed', 'Completed'),
+        ('Cancelled', 'Cancelled'),
+        ('Rejected', 'Rejected'),
+    ]
+
     order_id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     order_date = models.DateTimeField(auto_now_add=True)
     order_totalprice = models.DecimalField(max_digits=10, decimal_places=2)
-    order_status = models.CharField(max_length=20)
+    order_status = models.CharField(max_length=20, choices=STATUS)
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
     deliveryperson_id = models.ForeignKey(DeliveryPerson, on_delete=models.CASCADE, null=True)
     def __str__(self):
@@ -100,9 +110,13 @@ class OrderItem(models.Model):
         return str(self.orderitem_id)
     
 class Payment(models.Model):
+    STATUS = [
+        ('Success', 'Success'),
+        ('Fail', 'Fail'),
+    ]
     payment_id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     payment_date = models.DateTimeField(auto_now_add=True)
-    payment_status = models.CharField(max_length=20)
+    payment_status = models.CharField(max_length=20, choices=STATUS)
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
     def __str__(self):
         return str(self.payment_id)

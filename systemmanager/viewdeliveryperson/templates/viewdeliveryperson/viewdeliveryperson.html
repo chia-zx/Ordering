@@ -1,0 +1,76 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="viewdeliveryperson">
+    <div class=top>
+        <h2>Delivery Person</h2>
+    </div>
+
+    <form method="GET" action="{% url 'viewdeliveryperson' %}">
+        <label for="viewdeliveryperson">Sort by:</label>
+        <select name="deliveryperson" id="deliveryperson">
+            <option value="" {% if not request.GET.deliveryperson %}selected{% endif %}> </option>
+            <option value="ID" {% if request.GET.deliveryperson == 'ID' %}selected{% endif %}>ID</option>
+            <option value="Name" {% if request.GET.deliveryperson == 'Name' %}selected{% endif %}>Name</option>
+        </select>
+        <button type="submit">Sort</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    DeliveryPersonID
+                </th>
+                <th>
+                    DeliveryPersonName
+                </th>
+                <th>
+                    DeliveryPersonPhone
+                </th>
+                <th>
+                    DeliveryPersonAddress
+                </th>
+            </tr>
+        </thead>
+        {% for deliveryperson in deliverypersons %}
+            <tr>
+                <td>
+                    {{ deliveryperson.deliveryperson_id }}
+                </td>
+                <td>
+                    {{ deliveryperson.deliveryperson_name }}
+                </td>
+                <td>
+                    {{ deliveryperson.deliveryperson_phone }}
+                </td>
+                <td>
+                    {{ deliveryperson.deliveryperson_address }}
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+<style>
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 2px solid #000000;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+
+{% endblock %}

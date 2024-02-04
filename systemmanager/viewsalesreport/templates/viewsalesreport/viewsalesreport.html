@@ -1,0 +1,21 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="viewsalesreport">
+    <div class=top>
+        <h2>SalesReport</h2>
+    </div>
+    <h3><strong>Total Completed Order: </strong> {{ num_completed_orders }}</h3>
+    <h3><strong>Total Cancelled Order: </strong> {{ num_cancelled_orders }}</h3>
+    <h3><strong>Total Spent By Customer: </strong>{{ customer_spent|floatformat:"2" }}</h3>
+</div>
+
+<style>
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+</style>
+
+{% endblock %}

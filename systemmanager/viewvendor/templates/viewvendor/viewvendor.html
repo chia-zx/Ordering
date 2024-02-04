@@ -1,0 +1,82 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="viewvendor">
+    <div class=top>
+        <h2>Vendor</h2>
+    </div>
+
+    <form method="GET" action="{% url 'viewvendor' %}">
+        <label for="viewvendor">Sort by:</label>
+        <select name="vendor" id="vendor">
+            <option value="" {% if not request.GET.vendor %}selected{% endif %}> </option>
+            <option value="ID" {% if request.GET.vendor == 'ID' %}selected{% endif %}>ID</option>
+            <option value="Name" {% if request.GET.vendor == 'Name' %}selected{% endif %}>Name</option>
+            <option value="Revenue" {% if request.GET.vendor == 'Revenue' %}selected{% endif %}>Revenue</option>
+        </select>
+        <button type="submit">Sort</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    VendorID
+                </th>
+                <th>
+                    VendorName
+                </th>
+                <th>
+                    VendorPhone
+                </th>
+                <th>
+                    VendorAddress
+                </th>
+                <th>
+                    Revenue
+            </tr>
+        </thead>
+        {% for vendor in vendors %}
+            <tr>
+                <td>
+                    {{ vendor.vendor_id }}
+                </td>
+                <td>
+                    {{ vendor.vendor_name }}
+                </td>
+                <td>
+                    {{ vendor.vendor_phone }}
+                </td>
+                <td>
+                    {{ vendor.vendor_address }}
+                </td>
+                <td>
+                    {{ vendor.vendor_revenue }}
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+<style>
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 2px solid #000000;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+
+{% endblock %}

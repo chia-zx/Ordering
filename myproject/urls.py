@@ -27,6 +27,10 @@ from vendor.confirmOrder import views as confirmorder_views
 from vendor.updateOrderStatus import views as updateOrderStatus_views
 from vendor.displayOrderHistory import views as displayOrderHistory_views
 from vendor.displayRevenue import views as displayRevenue_views
+from systemmanager.viewcustomer import views as viewcustomer_views
+from systemmanager.viewvendor import views as viewvendor_views
+from systemmanager.viewdeliveryperson import views as viewdeliveryperson_views
+from systemmanager.viewsalesreport import views as viewsalesreport_views
 
 admin.autodiscover()
 
@@ -69,5 +73,11 @@ urlpatterns = [
     re_path(r'^displayOrderHistory$', displayOrderHistory_views.displayOrderHistory, name='displayOrderHistory'),
     # display revenue
     re_path(r'^displayRevenue$', displayRevenue_views.displayRevenue, name='displayRevenue'),
+
+    # System Manager
+    re_path(r'^viewcustomer', viewcustomer_views.viewAllCustomer, name='viewcustomer'),
+    re_path(r'^viewvendor', viewvendor_views.viewAllVendor, name = 'viewvendor'),
+    re_path(r'^viewdeliveryperson', viewdeliveryperson_views.viewAllDeliveryperson, name = 'viewdeliveryperson'),
+    re_path(r'^viewsalesreport', viewsalesreport_views.viewSalesReport, name='viewsalesreport'),
 
 ]

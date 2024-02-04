@@ -1,0 +1,83 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="viewcustomer">
+    <div class=top>
+        <h2>Customer</h2>
+    </div>
+
+    <form method="GET" action="{% url 'viewcustomer' %}">
+        <label for="viewcustomer">Sort by:</label>
+        <select name="customer" id="customer">
+            <option value="" {% if not request.GET.customer %}selected{% endif %}> </option>
+            <option value="ID" {% if request.GET.customer == 'ID' %}selected{% endif %}>ID</option>
+            <option value="Name" {% if request.GET.customer == 'Name' %}selected{% endif %}>Name</option>
+            <option value="Spent" {% if request.GET.customer == 'Spent' %}selected{% endif %}>Spent</option>
+        </select>
+        <button type="submit">Sort</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    CustomerID
+                </th>
+                <th>
+                    CustomerName
+                </th>
+                <th>
+                    CustomerPhone
+                </th>
+                <th>
+                    CustomerAddress
+                </th>
+                <th>
+                    Spent
+                </th>
+            </tr>
+        </thead>
+        {% for customer in customers %}
+            <tr>
+                <td>
+                    {{ customer.customer_id }}
+                </td>
+                <td>
+                    {{ customer.customer_name }}
+                </td>
+                <td>
+                    {{ customer.customer_phone }}
+                </td>
+                <td>
+                    {{ customer.customer_address }}
+                </td>
+                <td>
+                    {{ customer.customer_spent }}
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+<style>
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 2px solid #000000;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+
+{% endblock %}

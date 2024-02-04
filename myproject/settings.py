@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'vendor.updateOrderStatus',
     'vendor.displayOrderHistory',
     'vendor.displayRevenue',
+    'systemmanager.viewcustomer',
+    'systemmanager.viewvendor',
+    'systemmanager.viewdeliveryperson',
+    'systemmanager.viewsalesreport',
 ]
 
 MIDDLEWARE = [

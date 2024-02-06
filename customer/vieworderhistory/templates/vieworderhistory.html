@@ -1,0 +1,54 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="container">
+    <h1>Order History</h1>
+    
+    <h2>Orders Being Processed</h2>
+    {% if processing_orders %}
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in processing_orders %}
+            <tr>
+                <td>{{ order.pk }}</td>
+                <td>{{ order.order_date|date:"Y-m-d H:i" }}</td>
+                <td>{{ order.get_status_display }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No orders are currently being processed.</p>
+    {% endif %}
+
+    <h2>Completed Orders</h2>
+    {% if completed_orders %}
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in completed_orders %}
+            <tr>
+                <td>{{ order.pk }}</td>
+                <td>{{ order.order_date|date:"Y-m-d H:i" }}</td>
+                <td>{{ order.get_status_display }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No order history found.</p>
+    {% endif %}
+</div>
+{% endblock %}

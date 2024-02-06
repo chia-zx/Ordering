@@ -61,20 +61,51 @@
             {% elif is_customer %}
             <tr>
                 <td>
-                    <form class="margintop" action='module3' method='GET'>
-                        <button type="submit" class="btn btn-info">Module 3</button><br />
+                    <form class="margintop" action='browsemenu' method='GET'>
+                        <button type="submit" class="btn btn-info">Browse menu</button><br />
                     </form>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <form class="margintop" action='module4' method='GET'>
-                        <button type="submit" class="btn btn-outline-info waves-effect">Module 4</button><br />
+                    <form class="margintop" action='addtocart' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">Add to Cart</button><br />
                     </form>
                 </td>
             </tr>
 
+            <tr>
+                <td>
+                    <form class="margintop" action='paymentandcheckout' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">Checkout</button><br />
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <form class="margintop" action='vieworderstatus' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">View order status</button><br />
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <form class="margintop" action='vieworderhistory' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">View order history</button><br />
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <form class="margintop" action='viewtotalspent' method='GET'>
+                        <button type="submit" class="btn btn-outline-info waves-effect">View total spent</button><br />
+                    </form>
+                </td>
+            </tr>
             {% elif is_delivery_person %}
             <tr>
                 <td>
@@ -148,8 +179,7 @@
         margin: 0; /* Remove default margin to ensure buttons are centered perfectly */
     }
 
-    h2 {
-        font-size: 3em; 
+    h2 {        font-size: 3em; 
         font-weight: bold;
         color: #ff6c47; 
         margin-top: 30px;

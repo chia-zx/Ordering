@@ -1,0 +1,20 @@
+
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="container">
+    <h1>Food Menu</h1>
+    {% for food in food_items %}
+    <div class="food-item">
+        <p>ID: {{ food.food_id }}</p>
+        <p>Name: {{ food.food_name }}</p>
+        <p>Description: {{ food.food_description }}</p>
+        <p>Price: ${{ food.food_price }}</p>
+        <p>Available: {{ food.food_available }}</p>
+        <form action="{% url 'add_to_cart' food.food_id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Add to Cart">
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

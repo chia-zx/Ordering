@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from app.models import Food
 from app.forms import Itemform
+from django.db import transaction
 
 # Create your views here.
 
@@ -22,17 +23,19 @@ def updateitemform(request):
 
     return render(request,'updateitem/updateitemform.html',context)
 
+@transaction.atomic
 def updateitemconfirmation(request):
     if request.method == 'POST':
-        food_id = request.POST.get('food_id')
-        food = Food.objects.get(pk=food_id)
-        form = Itemform(request.POST, instance=food)
-        if form.is_valid():
-            form.instance.vendor_id = food.vendor_id
-            form.save()
-            context = {
-                'food' : food
-            }
-            
-            return render(request,'updateitem/updateitemconfirmation.html',context)
+        with transaction.atomic():
+            food_id = request.POST.get('food_id')
+            food = Food.objects.get(pk=food_id)
+            form = Itemform(request.POST, instance=food)
+            if form.is_valid():
+                form.instance.vendor_id = food.vendor_id
+                form.save()
+                context = {
+                    'food' : food
+                }
+                
+                return render(request,'updateitem/updateitemconfirmation.html',context)
         

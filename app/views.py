@@ -54,7 +54,7 @@ def about(request):
         'app/about.html',
         {
             'title':'Homecook Food Ordering System',
-            'message':'The feature in this system',
+            'message':'This is an food ordering system. There will be 4 main users in this system.',
             'year':datetime.now().year,
         }
     )

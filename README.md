@@ -1,3 +1,3 @@
 # Ordering
 
-(image/homepage.png)
+![homepage](image/homepage.png)

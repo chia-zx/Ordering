@@ -2,30 +2,16 @@
 {% block content %}
 <div class="all-order">
     <div class=top>
-        <h1>Order History</h1>
+        <h1>Order Status</h1>
     </div>
-
-    <div class="sort">
-        <form method="GET" action="{% url 'displayOrderHistory' %}">
-            <label for="order_status">Sort by Order Status:</label>
-            <select name="order_status" id="order_status">
-                <option value="" {% if not request.GET.order_status %}selected{% endif %}>All</option>
-                <option value="Completed" {% if request.GET.order_status == 'Completed' %}selected{% endif %}>Completed</option>
-                <option value="Cancelled" {% if request.GET.order_status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
-                <option value="Rejected" {% if request.GET.order_status == 'Rejected' %}selected{% endif %}>Rejected</option>
-            </select>
-            <button type="submit">Sort</button>
-        </form>
-    </div>
-
     {% if orders %}
         {% for order in orders %}
             <div class = 'item-container'>
                 <strong>ID : </strong> {{ order.order_id }} <br>
                 <strong>Date : </strong> {{ order.order_date }} <br>
                 <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
-                <strong>Customer : </strong> {{ order.customer_id }} <br>
-                <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
+                <strong>Customer ID : </strong> {{ order.customer_id }} <br>
+                <strong>Delivery Person ID: </strong> {{ order.deliveryperson_id }} <br>
                 <br>
                 <strong>Status : </strong> {{ order.order_status }} <br>
 
@@ -34,10 +20,21 @@
                     <input type="hidden" name="order_id" value="{{ order.order_id }}">
                     <button type="submit" class="view-button">View</button>
                 </form>
+
+                <form method="POST" action="{% url 'completeOrderForm' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                    <button type="submit" class="complete-button">Done</button>
+                </form>
+                <form method="POST" action="{% url 'cancelOrderForm' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                    <button type="submit" class="cancel-button">Cancel</button>
+                </form>
             </div>
         {% endfor %}
     {% else %}
-        <br><h4><strong>No Order History found.</strong><h4>
+        <h4><strong>No Order Preparing at this moment.</strong><h4>
     {% endif %}
 </div>
 
@@ -57,10 +54,6 @@
     h4 {
         margin: 35px;
         color: red;
-    }
-
-    .sort {
-        margin-left: 35px;
     }
 
     .item-container {
@@ -86,6 +79,39 @@
     .view-button:hover {
         background-color: #2980b9;
     }
+
+    .complete-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .complete-button:hover {
+        background-color: #45a049;
+    }
+
+    .cancel-button {
+        background-color: #e74c3c;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .cancel-button:hover {
+        background-color: #c0392b;
+    }
+
 
 </style>
 

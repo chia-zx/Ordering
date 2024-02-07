@@ -16,7 +16,19 @@ def displayPendingOrder(request):
         'year': datetime.now().year,
         'orders': orders
     }
-    return render(request, 'confirmOrder/displayPendingOrder.html', context)
+    return render(request, 'displayPendingOrder/displayPendingOrder.html', context)
+
+def displayOrderPendingDetail(request):
+    if request.method == 'POST':
+        orderid = request.POST.get('order_id')
+        orderitems = OrderItem.objects.filter(order_id=orderid)
+
+        context = {
+            'year': datetime.now().year,
+            'order_id': orderid,
+            'orderitems': orderitems,
+        }
+        return render(request, 'displayPendingOrder/pendingOrderDetail.html', context)
 
 def acceptorder_form(request):
     if request.method == 'POST':
@@ -27,7 +39,7 @@ def acceptorder_form(request):
                 'year': datetime.now().year,
                 'order' : order
             }
-            return render(request, 'confirmOrder/acceptOrderForm.html', context)
+            return render(request, 'acceptOrder/acceptOrderForm.html', context)
 
 
 def acceptorder_confirmation(request):
@@ -42,7 +54,7 @@ def acceptorder_confirmation(request):
                 'order' : order,
             }
             
-            return render(request, 'confirmOrder/acceptOrderConfirmation.html', context)
+            return render(request, 'acceptOrder/acceptOrderConfirmation.html', context)
         
 def rejectorder_form(request):
     if request.method == 'POST':
@@ -53,7 +65,7 @@ def rejectorder_form(request):
                 'year': datetime.now().year,
                 'order' : order
             }
-            return render(request, 'confirmOrder/rejectOrderForm.html', context)
+            return render(request, 'rejectOrder/rejectOrderForm.html', context)
 
 
 def rejectorder_confirmation(request):
@@ -65,6 +77,7 @@ def rejectorder_confirmation(request):
             order.save()
             context = {
                 'year': datetime.now().year,
-                'order' : order
+                'order' : order,
+                'order_id': order_id
             }
-            return render(request, 'confirmOrder/rejectOrderConfirmation.html', context)
+            return render(request, 'rejectOrder/rejectOrderConfirmation.html', context)

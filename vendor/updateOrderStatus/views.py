@@ -15,7 +15,19 @@ def displayPreparingOrder(request):
         'year': datetime.now().year,
         'orders': orders
     }
-    return render(request, 'updateOrderStatus/displayPreparingOrder.html', context)
+    return render(request, 'displayPreparingOrder/displayPreparingOrder.html', context)
+
+def displayOrderPreparingDetail(request):
+    if request.method == 'POST':
+        orderid = request.POST.get('order_id')
+        orderitems = OrderItem.objects.filter(order_id=orderid)
+
+        context = {
+            'year': datetime.now().year,
+            'order_id': orderid,
+            'orderitems': orderitems,
+        }
+        return render(request, 'displayPreparingOrder/orderPreparingDetail.html', context)
 
 def completeorder_form(request):
     if request.method == 'POST':
@@ -53,7 +65,7 @@ def cancelorder_form(request):
             order = Order.objects.get(pk=order_id)
             context = {
                 'year': datetime.now().year,
-                'order' : order
+                'order' : order,
             }
             return render(request, 'updateOrderStatus/cancelOrderForm.html', context)
 
@@ -67,6 +79,7 @@ def cancelorder_confirmation(request):
             order.save()
             context = {
                 'year': datetime.now().year,
-                'order' : order
+                'order' : order,
+                'order_id': order_id
             }
             return render(request, 'updateOrderStatus/cancelOrderConfirmation.html', context)

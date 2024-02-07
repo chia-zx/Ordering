@@ -1,0 +1,71 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="all-order">
+    <div class=top>
+        <h1>Order #{{ order_id }}</h1>
+        <form method="POST" action="{% url 'displayOrderHistory' %}">
+            {% csrf_token %}
+            <input type="hidden" name="order_id" value="{{ order_id }}">
+            <button type="submit" class="back-button">Back</button>
+        </form>
+    </div>
+    {% if orderitems %}
+        {% for orderitem in orderitems %}
+            <div class = 'item-container'>
+                <strong>OrderItem ID : </strong> {{ orderitem.orderitem_id }} <br>
+                <strong>Food : </strong> {{ orderitem.food_id.food_name }} <br>
+                <strong>Price : </strong> RM{{ orderitem.food_id.food_price }} <br>
+                <strong>Quantity : </strong> {{ orderitem.orderitem_quantity }} <br>
+
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<style>
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .top h1 {
+        margin: 35px;
+    }
+
+    h4 {
+        margin: 35px;
+        color: red;
+    }
+
+    .item-container {
+        border: 3px solid black;
+        margin: 35px;
+        overflow: hidden; /* Ensure that the box wraps around its content */
+        padding: 20px;
+        font-size: 17px;
+    }
+
+    .back-button {
+        background-color: #3498db;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin-top: 60px;
+        margin-right: 35px;
+        border: none;
+        width: 90px;
+        height: 50px;
+    }
+    .back-button:hover {
+        background-color: #2980b9;
+    }
+
+
+</style>
+
+{% endblock %}

@@ -21,4 +21,4 @@ def browse_menu(request):
         'food_items': food_items,
         'vendors': vendors,  # Add the vendors to the context
     }
-    return render(request, 'customer/browsemenu.html', context)
+    return render(request, 'browsemenu/browsemenu.html', context)

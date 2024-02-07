@@ -67,18 +67,21 @@ urlpatterns = [
     re_path(r'^deleteitemconfirmation$', deleteitem_views.deleteitem_confirmation, name='deleteitem_confirmation'),
     # view and confirm order
     re_path(r'^displayPendingOrder$', confirmorder_views.displayPendingOrder, name='displayPendingOrder'),
+    re_path(r'^pendingOrderDetail$', confirmorder_views.displayOrderPendingDetail, name='pendingOrderDetail'),
     re_path(r'^acceptOrderForm$', confirmorder_views.acceptorder_form, name='acceptOrderForm'),
     re_path(r'^acceptOrderConfirmation$', confirmorder_views.acceptorder_confirmation, name='acceptOrderConfirmation'),
     re_path(r'^rejectOrderForm$', confirmorder_views.rejectorder_form, name='rejectOrderForm'),
     re_path(r'^rejectOrderConfirmation$', confirmorder_views.rejectorder_confirmation, name='rejectOrderConfirmation'),
     # update order status
     re_path(r'^displayPreparingOrder$', updateOrderStatus_views.displayPreparingOrder, name='displayPreparingOrder'),
+    re_path(r'^orderPreparingDetail$', updateOrderStatus_views.displayOrderPreparingDetail, name='orderPreparingDetail'),
     re_path(r'^completeOrderForm$', updateOrderStatus_views.completeorder_form, name='completeOrderForm'),
     re_path(r'^completeOrderConfirmation$', updateOrderStatus_views.completeorder_confirmation, name='completeOrderConfirmation'),
     re_path(r'^cancelOrderForm$', updateOrderStatus_views.cancelorder_form, name='cancelOrderForm'),
     re_path(r'^cancelOrderConfirmation$', updateOrderStatus_views.cancelorder_confirmation, name='cancelOrderConfirmation'),
     # view order history
     re_path(r'^displayOrderHistory$', displayOrderHistory_views.displayOrderHistory, name='displayOrderHistory'),
+    re_path(r'^orderHistoryDetail$', displayOrderHistory_views.displayOrderHistoryDetail, name='orderHistoryDetail'),
     # display revenue
     re_path(r'^displayRevenue$', displayRevenue_views.displayRevenue, name='displayRevenue'),
 

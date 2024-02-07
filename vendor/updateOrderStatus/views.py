@@ -77,6 +77,15 @@ def cancelorder_confirmation(request):
             order = Order.objects.get(pk=order_id)
             order.order_status = 'Cancelled'
             order.save()
+
+            orderitems = OrderItem.objects.filter(order_id=order_id)
+
+            # Update available quantity for each food in order items
+            for orderitem in orderitems:
+                food = orderitem.food_id
+                food.food_available += orderitem.orderitem_quantity
+                food.save()
+
             context = {
                 'year': datetime.now().year,
                 'order' : order,

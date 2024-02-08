@@ -66,6 +66,7 @@ class CartItem(models.Model):
     cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
     food_id = models.ForeignKey(Food, on_delete=models.SET_NULL, null=True)
     cartitem_quantity = models.IntegerField()
+    cartitem_totalprice = models.DecimalField(max_digits=10, decimal_places=2)
     def __str__(self):
         return str(self.cartitem_id)
     def get_food_info(self):
@@ -106,6 +107,7 @@ class OrderItem(models.Model):
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
     food_id = models.ForeignKey(Food, on_delete=models.CASCADE)
     orderitem_quantity = models.IntegerField()
+    orderitem_totalprice = models.DecimalField(max_digits=10, decimal_places=2)
     def __str__(self):
         return str(self.orderitem_id)
     

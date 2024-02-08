@@ -21,6 +21,11 @@ def displayOrderPendingDetail(request):
     if request.method == 'POST':
         orderid = request.POST.get('order_id')
         orderitems = OrderItem.objects.filter(order_id=orderid)
+        for orderitem in orderitems:
+            unitprice = orderitem.food_id.food_price
+            quantity = orderitem.orderitem_quantity
+            orderitem.orderitem_totalprice = unitprice * quantity
+            orderitem.save()
 
         context = {
             'year': datetime.now().year,

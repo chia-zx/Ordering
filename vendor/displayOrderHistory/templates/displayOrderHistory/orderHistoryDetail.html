@@ -14,9 +14,11 @@
             <div class = 'item-container'>
                 <strong>OrderItem ID : </strong> {{ orderitem.orderitem_id }} <br>
                 <strong>Food : </strong> {{ orderitem.food_id.food_name }} <br>
-                <strong>Price : </strong> RM{{ orderitem.food_id.food_price }} <br>
+                <br>
+                <strong>Unit Price : </strong> RM {{ orderitem.food_id.food_price }} <br>
                 <strong>Quantity : </strong> {{ orderitem.orderitem_quantity }} <br>
-
+                <br>
+                <strong>Total Price : </strong> RM {{ orderitem.orderitem_totalprice }} <br>
             </div>
         {% endfor %}
     {% endif %}

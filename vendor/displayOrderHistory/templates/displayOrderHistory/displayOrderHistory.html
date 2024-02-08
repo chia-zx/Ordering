@@ -23,13 +23,14 @@
             <div class = 'item-container'>
                 <strong>ID : </strong> {{ order.order_id }} <br>
                 <strong>Date : </strong> {{ order.order_date }} <br>
-                <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+                <strong>Total Price: </strong> RM {{ order.order_totalprice }} <br>
+                <br>
                 <strong>Customer : </strong> {{ order.customer_id }} <br>
                 <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
                 <br>
                 <strong>Status : </strong> {{ order.order_status }} <br>
 
-                <form method="POST" action="{% url 'orderPreparingDetail' %}">
+                <form method="POST" action="{% url 'orderHistoryDetail' %}">
                     {% csrf_token %}
                     <input type="hidden" name="order_id" value="{{ order.order_id }}">
                     <button type="submit" class="view-button">View</button>

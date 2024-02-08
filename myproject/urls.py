@@ -39,7 +39,6 @@ from customer.vieworderhistory import views as vieworderhistory_views
 from customer.viewtotalspent import views as  viewtotalspent_views
 
 
-
 admin.autodiscover()
 
 urlpatterns = [

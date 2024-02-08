@@ -51,7 +51,7 @@ urlpatterns = [
         LoginView.as_view(template_name = 'app/login.html'),
         name='login'),
     re_path(r'^logout$',
-        LogoutView.as_view(template_name = 'app/index.html'),
+        LogoutView.as_view(template_name = 'app/index.html', next_page='home'),
         name='logout'),
     re_path(r'^menu$', main_views.menu, name='menu'),
     

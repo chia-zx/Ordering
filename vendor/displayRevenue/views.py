@@ -43,6 +43,7 @@ def displayRevenue(request):
             orders = Order.objects.filter(order_id__in=complete_orderid, order_status='Completed')
 
         total_revenue = orders.aggregate(Sum('order_totalprice'))['order_totalprice__sum'] or 0
+        total_revenue = "{:.2f}".format(total_revenue)
 
         context = {
             'year': datetime.now().year,

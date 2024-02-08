@@ -24,6 +24,7 @@ def deleteitem_confirmation(request):
             food.delete()
             context = {
                 'year': datetime.now().year,
-                'food' : food
+                'food' : food,
+                'food_id': food_id
             }
             return render(request, 'deleteitem/deleteitemconfirmation.html', context)

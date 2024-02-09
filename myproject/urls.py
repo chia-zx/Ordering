@@ -16,9 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from app import views as main_views
-import django.contrib.auth.views
 from django.contrib.auth.views import LoginView, LogoutView
-from datetime import datetime
 from vendor.additem import views as additem_views
 from vendor.displayitem import views as displayitem_views
 from vendor.updateitem import views as updateitem_views

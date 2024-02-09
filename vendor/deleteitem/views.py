@@ -1,7 +1,6 @@
 from datetime import datetime
 from django.shortcuts import redirect, render
 from app.models import Food
-from django.contrib import messages
 
 def deleteitem_form(request):
     if request.method == 'POST':

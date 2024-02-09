@@ -44,6 +44,9 @@ def displayRevenue(request):
         total_revenue = orders.aggregate(Sum('order_totalprice'))['order_totalprice__sum'] or 0
         total_revenue = "{:.2f}".format(total_revenue)
 
+        vendor.vendor_revenue = total_revenue
+        vendor.save()
+
         context = {
             'year': datetime.now().year,
             'vendor': vendor,

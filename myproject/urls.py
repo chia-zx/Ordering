@@ -83,6 +83,7 @@ urlpatterns = [
     re_path(r'^orderHistoryDetail$', displayOrderHistory_views.displayOrderHistoryDetail, name='orderHistoryDetail'),
     # display revenue
     re_path(r'^displayRevenue$', displayRevenue_views.displayRevenue, name='displayRevenue'),
+    re_path(r'revenueOrderDetail$', displayRevenue_views.displayRevenueOrderDetail, name='revenueOrderDetail'),
 
     # System Manager
     re_path(r'^viewcustomer', viewcustomer_views.viewAllCustomer, name='viewcustomer'),

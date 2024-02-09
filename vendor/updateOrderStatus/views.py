@@ -49,8 +49,6 @@ def completeorder_confirmation(request):
             order = Order.objects.get(pk=order_id)
             order.order_status = 'Ready'
             order.save()
-            vendor.vendor_revenue += order.order_totalprice
-            vendor.save()
             context = {
                 'year': datetime.now().year,
                 'order' : order,

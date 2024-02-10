@@ -1,35 +1,35 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
-from django.utils import timezone
+from django.shortcuts import render, get_object_or_404
+from app.models import Food, Cart, CartItem, Customer
 from django.contrib.auth.decorators import login_required
-from app.models import Food, Cart, CartItem
-from app.models import Customer  # Replace with your user model if different
+from datetime import datetime
 
 @login_required
-def add_to_cart(request, food_id):
-    food_item = get_object_or_404(Food, pk=food_id)
-    customer = get_object_or_404(Customer, user=request.user)  # Adjust based on your Customer model relationship to User
+def add_to_cart(request):
+    # Ensure that this view only works with POST method to handle form submission
+    if request.method == "POST":
+        food_id = request.POST.get('food_id')
+        user = request.user
+        customer, _ = Customer.objects.get_or_create(user=user)
 
-    if food_item.food_available > 0:
-        # Get or create a cart for the customer
-        cart, created = Cart.objects.get_or_create(customer_id=customer, defaults={'cart_date': timezone.now()})
-        
-        # Get or create a cart item for this food item
-        cart_item, created = CartItem.objects.get_or_create(
-            cart_id=cart,
-            food_id=food_item,
-            defaults={'cartitem_quantity': 1}
-        )
+        # Retrieve the Food instance
+        food = get_object_or_404(Food, pk=food_id)
+
+        # Retrieve or create a Cart for the logged-in customer
+        cart, created = Cart.objects.get_or_create(customer_id=customer, defaults={'customer_id': customer})
+
+        # Check if the CartItem already exists
+        cart_item, created = CartItem.objects.get_or_create(cart_id=cart, food_id=food, defaults={'cartitem_quantity': 1})
         if not created:
-            # If the cart item already exists, increase the quantity
+            # If the item already exists, update the quantity instead
             cart_item.cartitem_quantity += 1
             cart_item.save()
 
-        messages.success(request, "Item added to cart successfully!")
-    else:
-        messages.error(request, "This item is not available.")
+        
+        context = {
+            'food': food,
+            'year': datetime.now().year
+            }
+        # Redirect to a new URL: this can be the cart page or wherever you want to redirect after adding to cart
+        return render(request,'addtocart.html', context)  # Make sure to replace 'cart_detail_url' with the actual name of your cart detail view URL
 
-    return redirect('addtocart')  # Replace 'menu_page' with the name of your menu page URL
 
-# Make sure to create the corresponding URL pattern in your urls.py:
-# path('add_to_cart/<int:food_id>/', views.add_to_cart, name='add_to_cart')

@@ -1,54 +1,43 @@
 {% extends "app/layout.html" %}
 {% block content %}
-<div class="container">
-    <h1>Order History</h1>
-    
-    <h2>Orders Being Processed</h2>
-    {% if processing_orders %}
-    <table>
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Date</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for order in processing_orders %}
-            <tr>
-                <td>{{ order.pk }}</td>
-                <td>{{ order.order_date|date:"Y-m-d H:i" }}</td>
-                <td>{{ order.get_status_display }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <p>No orders are currently being processed.</p>
-    {% endif %}
+<div class="all-order">
+    <h2>Customer Order History</h2><br>
 
-    <h2>Completed Orders</h2>
-    {% if completed_orders %}
-    <table>
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Date</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for order in completed_orders %}
-            <tr>
-                <td>{{ order.pk }}</td>
-                <td>{{ order.order_date|date:"Y-m-d H:i" }}</td>
-                <td>{{ order.get_status_display }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% if orders %}
+        {% for order in orders %}
+            <div class = 'item-container'>
+                <strong>ID : </strong> {{ order.order_id }} <br>
+                <strong>Date : </strong> {{ order.order_date }} <br>
+                <strong>Total : </strong>  RM{{ order.order_totalprice }} <br>
+                <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
+                <br>
+                <strong>Status : </strong> {{ order.order_status }} <br>
+            </div>
+        {% endfor %}
     {% else %}
-    <p>No order history found.</p>
+        <br><h4><strong>No Order History found.</strong><h4>
     {% endif %}
 </div>
+
+<style>
+
+    h2 {
+        margin-top: 50px;
+        margin-left: 35px;
+    }
+
+    h4 {
+        color: red;
+    }
+
+    .item-container {
+        border: 3px solid black;
+        margin: 35px;
+        overflow: hidden; /* Ensure that the box wraps around its content */
+        padding: 20px;
+        font-size: 17px;
+    }
+
+</style>
+
 {% endblock %}

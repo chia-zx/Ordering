@@ -90,10 +90,10 @@ urlpatterns = [
     re_path(r'^viewsalesreport', viewsalesreport_views.viewSalesReport, name='viewsalesreport'),
 
     # Customer
-    re_path(r'^browsemenu', browsemenu_views.browse_menu, name='browsemenu'),
+    re_path(r'^browsemenu', browsemenu_views.display_menu, name='browsemenu'),
     re_path(r'^addtocart', addtocart_views.add_to_cart, name='addtocart'),
     re_path(r'^paymentandcheckout', paymentandcheckout_views.checkout, name='checkout'),
     re_path(r'^vieworderstatus', vieworderstatus_views.view_order_status, name='vieworderstatus'),
-    re_path(r'^vieworderhistory', vieworderhistory_views.view_order_history, name='vieworderhistory'),
+    re_path(r'^vieworderhistory', vieworderhistory_views.customer_order_history, name='vieworderhistory'),
     re_path(r'^viewtotalspent', viewtotalspent_views.view_total_spent, name='viewtotalspent'),
 ]

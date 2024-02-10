@@ -1,17 +1,16 @@
-# views.py
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from app.models import Order
+from datetime import datetime
 
 @login_required
-def view_order_history(request):
-    # Fetch all orders for the logged-in user, excluding those still being processed
-    completed_orders = Order.objects.filter(customer=request.user, status__in=['completed', 'shipped', 'delivered']).order_by('-order_date')
+def customer_order_history(request):
+    # Directly use the logged-in user's customer profile to fetch orders
+    orders = Order.objects.filter(customer_id__user=request.user, order_status='Completed').order_by('-order_date')
 
-    # Fetch orders that are still being processed
-    processing_orders = Order.objects.filter(customer=request.user, status='processing').order_by('-order_date')
+    context = {
+        'orders': orders,
+        'year': datetime.now().year
+    }
 
-    return render(request, 'customer/order_history.html', {
-        'completed_orders': completed_orders,
-        'processing_orders': processing_orders,
-    })
+    return render(request, 'vieworderhistory.html', context)

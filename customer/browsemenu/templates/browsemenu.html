@@ -15,6 +15,13 @@
         
             <button type="submit">Filter</button>
         </form>
+        
+
+        <form method="POST" action="{% url 'additem_form' %}">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ food.id }}">
+            <button type="submit" class="checkout-button">Check Out</button>
+        </form>
     </div>
     {% if foods %}
         {% for food in foods %}
@@ -22,7 +29,7 @@
                 <strong>ID : </strong> {{ food.food_id }} <br>
                 <strong>Name : </strong> {{ food.food_name }} <br>
                 <strong>Description : </strong> {{ food.food_description }} <br>
-                <strong>Price : </strong> RM {{ food.food_price }} <br>
+                <strong>Price : </strong> {{ food.food_price }} <br>
                 <strong>Available : </strong> {{ food.food_available }} <br>
                 <strong>Vendor Name : </strong> {{ food.vendor_id.vendor_name }} <br>
                 <form method="POST" action="{% url 'addtocart' %}">
@@ -44,6 +51,9 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
+    }
+
+    .top h1 {
         margin: 35px;
     }
 
@@ -51,7 +61,24 @@
         margin: 35px;
         color: red;
     }
-    
+
+    .checkout-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin-top: 60px;
+        margin-right: 35px;
+        border: none;
+        width: 110px;
+        height: 50px;
+    }
+    .add-button:hover {
+        background-color: #45a049;
+    }
+
     .item-container {
         border: 3px solid black;
         margin: 35px;
@@ -69,12 +96,27 @@
         float: right;  
         margin: 10px;
         border: none;
-        width: 130px;
+        width: 80px;
         height: 35px;
     }
+    .update-button:hover {
+        background-color: #2980b9;
+    }
 
-    .addtocart-button:hover {
-        background-color: #45a049;
+    .delete-button {
+        background-color: #e74c3c;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .delete-button:hover {
+        background-color: #c0392b;
     }
 
 

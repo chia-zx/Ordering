@@ -6,11 +6,20 @@
     {% if orders %}
         {% for order in orders %}
             <div class = 'item-container'>
+<<<<<<< HEAD
                 <strong>Order ID : </strong> {{ order.order_id }} <br>
                 <strong>Date : </strong> {{ order.order_date }} <br>
                 <strong>Total : </strong>  {{ order.order_totalprice }} <br>
                 <strong>Delivery Person ID : </strong> {{ order.deliveryperson_id }} <br>
                 <br>
+=======
+                <strong>ID : </strong> {{ order.order_id }} <br>
+                <strong>Date : </strong> {{ order.order_date }} <br>
+                <strong>Total : </strong>  RM{{ order.order_totalprice }} <br>
+                <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
+                <br>
+                <strong>Status : </strong> {{ order.order_status }} <br>
+>>>>>>> 2b89564c623b50d442d3b1de3936d1160cd5c1a5
             </div>
         {% endfor %}
     {% else %}
@@ -20,6 +29,7 @@
 
 <style>
 
+<<<<<<< HEAD
     .top {
         display: flex;
         justify-content: space-between;
@@ -29,12 +39,18 @@
 
     .top h1 {
         margin: 35px;
+=======
+    h2 {
+        margin-top: 50px;
+        margin-left: 35px;
+>>>>>>> 2b89564c623b50d442d3b1de3936d1160cd5c1a5
     }
 
     h4 {
         color: red;
     }
 
+<<<<<<< HEAD
     .add-button {
         background-color: #4CAF50;
         color: white;
@@ -52,6 +68,8 @@
         background-color: #45a049;
     }
 
+=======
+>>>>>>> 2b89564c623b50d442d3b1de3936d1160cd5c1a5
     .item-container {
         border: 3px solid black;
         margin: 35px;

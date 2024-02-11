@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'customer.vieworderhistory',
     'customer.vieworderstatus',
     'customer.viewtotalspent',
+    'customer.paymentandcheckout',
 ]
 
 MIDDLEWARE = [

@@ -15,9 +15,9 @@
         
             <button type="submit">Filter</button>
         </form>
-        
+            
 
-        <form method="POST" action="{% url 'additem_form' %}">
+        <form method="POST" action="{% url 'checkout' %}">
             {% csrf_token %}
             <input type="hidden" name="id" value="{{ food.id }}">
             <button type="submit" class="checkout-button">Check Out</button>

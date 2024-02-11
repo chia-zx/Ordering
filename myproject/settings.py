@@ -53,11 +53,8 @@ INSTALLED_APPS = [
     'customer.browsemenu',
     'customer.addtocart.apps.AddtocartConfig',
     'customer.vieworderhistory',
-<<<<<<< HEAD
     'customer.vieworderstatus',
     'customer.viewtotalspent',
-=======
->>>>>>> 2b89564c623b50d442d3b1de3936d1160cd5c1a5
 ]
 
 MIDDLEWARE = [

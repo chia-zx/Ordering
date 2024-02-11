@@ -29,12 +29,7 @@ def add_to_cart(request):
             'food': food,
             'year': datetime.now().year
             }
-<<<<<<< HEAD
 
         return render(request,'addtocart.html', context) 
-=======
-        # Redirect to a new URL: this can be the cart page or wherever you want to redirect after adding to cart
-        return render(request,'addtocart.html', context)  # Make sure to replace 'cart_detail_url' with the actual name of your cart detail view URL
->>>>>>> 2b89564c623b50d442d3b1de3936d1160cd5c1a5
 
 

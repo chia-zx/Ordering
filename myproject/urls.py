@@ -16,9 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from app import views as main_views
-import django.contrib.auth.views
 from django.contrib.auth.views import LoginView, LogoutView
-from datetime import datetime
 from vendor.additem import views as additem_views
 from vendor.displayitem import views as displayitem_views
 from vendor.updateitem import views as updateitem_views
@@ -39,7 +37,6 @@ from customer.vieworderhistory import views as vieworderhistory_views
 from customer.viewtotalspent import views as  viewtotalspent_views
 
 
-
 admin.autodiscover()
 
 urlpatterns = [
@@ -52,7 +49,7 @@ urlpatterns = [
         LoginView.as_view(template_name = 'app/login.html'),
         name='login'),
     re_path(r'^logout$',
-        LogoutView.as_view(template_name = 'app/index.html'),
+        LogoutView.as_view(template_name = 'app/index.html', next_page='home'),
         name='logout'),
     re_path(r'^menu$', main_views.menu, name='menu'),
     
@@ -67,20 +64,24 @@ urlpatterns = [
     re_path(r'^deleteitemconfirmation$', deleteitem_views.deleteitem_confirmation, name='deleteitem_confirmation'),
     # view and confirm order
     re_path(r'^displayPendingOrder$', confirmorder_views.displayPendingOrder, name='displayPendingOrder'),
+    re_path(r'^pendingOrderDetail$', confirmorder_views.displayOrderPendingDetail, name='pendingOrderDetail'),
     re_path(r'^acceptOrderForm$', confirmorder_views.acceptorder_form, name='acceptOrderForm'),
     re_path(r'^acceptOrderConfirmation$', confirmorder_views.acceptorder_confirmation, name='acceptOrderConfirmation'),
     re_path(r'^rejectOrderForm$', confirmorder_views.rejectorder_form, name='rejectOrderForm'),
     re_path(r'^rejectOrderConfirmation$', confirmorder_views.rejectorder_confirmation, name='rejectOrderConfirmation'),
     # update order status
     re_path(r'^displayPreparingOrder$', updateOrderStatus_views.displayPreparingOrder, name='displayPreparingOrder'),
+    re_path(r'^orderPreparingDetail$', updateOrderStatus_views.displayOrderPreparingDetail, name='orderPreparingDetail'),
     re_path(r'^completeOrderForm$', updateOrderStatus_views.completeorder_form, name='completeOrderForm'),
     re_path(r'^completeOrderConfirmation$', updateOrderStatus_views.completeorder_confirmation, name='completeOrderConfirmation'),
     re_path(r'^cancelOrderForm$', updateOrderStatus_views.cancelorder_form, name='cancelOrderForm'),
     re_path(r'^cancelOrderConfirmation$', updateOrderStatus_views.cancelorder_confirmation, name='cancelOrderConfirmation'),
     # view order history
     re_path(r'^displayOrderHistory$', displayOrderHistory_views.displayOrderHistory, name='displayOrderHistory'),
+    re_path(r'^orderHistoryDetail$', displayOrderHistory_views.displayOrderHistoryDetail, name='orderHistoryDetail'),
     # display revenue
     re_path(r'^displayRevenue$', displayRevenue_views.displayRevenue, name='displayRevenue'),
+    re_path(r'revenueOrderDetail$', displayRevenue_views.displayRevenueOrderDetail, name='revenueOrderDetail'),
 
     # System Manager
     re_path(r'^viewcustomer', viewcustomer_views.viewAllCustomer, name='viewcustomer'),
@@ -89,10 +90,10 @@ urlpatterns = [
     re_path(r'^viewsalesreport', viewsalesreport_views.viewSalesReport, name='viewsalesreport'),
 
     # Customer
-    re_path(r'^browsemenu', browsemenu_views.browse_menu, name='browsemenu'),
+    re_path(r'^browsemenu', browsemenu_views.display_menu, name='browsemenu'),
     re_path(r'^addtocart', addtocart_views.add_to_cart, name='addtocart'),
     re_path(r'^paymentandcheckout', paymentandcheckout_views.checkout, name='checkout'),
     re_path(r'^vieworderstatus', vieworderstatus_views.view_order_status, name='vieworderstatus'),
-    re_path(r'^vieworderhistory', vieworderhistory_views.view_order_history, name='vieworderhistory'),
+    re_path(r'^vieworderhistory', vieworderhistory_views.customer_order_history, name='vieworderhistory'),
     re_path(r'^viewtotalspent', viewtotalspent_views.view_total_spent, name='viewtotalspent'),
 ]

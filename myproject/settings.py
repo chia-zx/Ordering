@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'systemmanager.viewsalesreport',
     'customer.browsemenu',
     'customer.addtocart.apps.AddtocartConfig',
+    'customer.vieworderhistory',
 ]
 
 MIDDLEWARE = [

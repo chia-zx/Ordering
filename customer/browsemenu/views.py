@@ -1,24 +1,21 @@
-# customer/views.py
-
+from datetime import datetime
 from django.shortcuts import render
-from app.models import Food  # Import your Food and Vendor models correctly
-from app.models import Vendor
+from django.contrib.auth.decorators import login_required
+from app.models import Food, Vendor
 
-def browse_menu(request):
-    # Check if a vendor_id is provided for filtering
-    vendor_id = request.GET.get('vendor_id', None)
-    vendors = Vendor.objects.all()  # Get all vendors to display in the dropdown
-    
-    if vendor_id:
-        # If a vendor_id is provided, filter food items by the vendor
-        food_items = Food.objects.filter(vendor_id=vendor_id)
-    else:
-        # If no vendor_id is provided, display all food items
-        food_items = Food.objects.all()
-    
-    # Pass the food items and vendors to the template
+@login_required
+def display_menu(request):
+    # v_id = Vendor.objects.get(user=request.user)
+    vendor_name = request.GET.get('vendor_name', '')
+    foods = Food.objects.all()
+    if vendor_name:
+        ven = Vendor.objects.get(vendor_name=vendor_name)
+        foods = foods.filter(vendor_id = ven.vendor_id)
+
+    vendors = Vendor.objects.all()
     context = {
-        'food_items': food_items,
-        'vendors': vendors,  # Add the vendors to the context
+        'year': datetime.now().year,
+        'foods': foods,
+        'vendors': vendors
     }
-    return render(request, 'customer/browsemenu.html', context)
+    return render(request, 'browsemenu.html', context)

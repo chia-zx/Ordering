@@ -1,17 +1,25 @@
-# views.py
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from app.models import Customer
+from django.contrib.auth.decorators import login_required
+from app.models import Customer,Order
+from datetime import datetime
 
 @login_required
-def view_total_spent(request):
+def customer_total_spent(request):
+
+    # Assuming each User has a corresponding Customer profile
     customer = Customer.objects.get(user=request.user)
-    total_spent = customer.customer_spent
+        
+    # Get the total amount spent from the Customer instance
+    customer_spent = customer.customer_spent
 
-    # Check if the customer has any orders
-    if total_spent > 0:
-        message = f"Total amount spent: ${total_spent}"
-    else:
-        message = "There was no past order and the total spent will be zero."
+    # Fetch all completed orders for the customer
+    orders = Order.objects.filter(customer_id=customer, order_status='Completed').order_by('-order_date')
 
-    return render(request, 'customer/total_spent.html', {'message': message})
+
+    context = {
+        'customer_spent': customer_spent,
+        'orders': orders,
+        'year': datetime.now().year
+    }
+
+    return render(request, 'viewtotalspent.html', context)

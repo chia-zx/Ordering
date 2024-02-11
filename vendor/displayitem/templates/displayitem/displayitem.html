@@ -15,7 +15,7 @@
                 <strong>ID : </strong> {{ food.food_id }} <br>
                 <strong>Name : </strong> {{ food.food_name }} <br>
                 <strong>Description : </strong> {{ food.food_description }} <br>
-                <strong>Price : </strong> {{ food.food_price }} <br>
+                <strong>Price : </strong> RM {{ food.food_price }} <br>
                 <strong>Available : </strong> {{ food.food_available }} <br>
                 <form method="POST" action="{% url 'updateitem_form' %}">
                     {% csrf_token %}

@@ -1,15 +1,15 @@
 {% extends "app/layout.html" %}
 {% block content %}
-<div class=acceptorderconfirmation>
-    <h2>Accept Confirmation</h2>
+<div class=rejectorderconfirmation>
+    <h2>Reject Confirmation</h2>
     <br>
-    <h5>The order is accepted! The order status will be changed to <strong>Preparing</strong>.</h5>
+    <h5>The order is rejected! The order status will be changed to <strong>Rejected</strong>.</h5>
     <br>
     <div class=content>
         <div class=item-container>
             <label for="order_id">Order  ID</label>
             <span class="separator">:</span>
-            <p>{{ order.order_id }}</p>
+            <p>{{ order_id }}</p>
         </div>
         <div class=item-container>
             <label for="order_date">Date</label>
@@ -17,17 +17,17 @@
             <p>{{ order.order_date }}</p>
         </div>
         <div class=item-container>
-            <label for="food_description">Total</label>
+            <label for="food_description">Total Amount</label>
             <span class="separator">:</span>
             <p>RM {{ order.order_totalprice }}</p>
         </div>
         <div class=item-container>
-            <label for="customer">Customer</label>
+            <label for="customer">Customer ID</label>
             <span class="separator">:</span>
             <p>{{ order.customer_id }}</p>
         </div>
         <div class=item-container>
-            <label for="deliveryperson">Delivery Person</label>
+            <label for="deliveryperson">Delivery Person ID</label>
             <span class="separator">:</span>
             <p>{{ order.deliveryperson_id }}</p>
         </div>
@@ -52,7 +52,7 @@
     .content {
         border: 3px solid black;
         padding: 30px;
-        width: 350px;
+        width: 50%;
     }
 
     .item-container {
@@ -66,11 +66,11 @@
         font-size: 16px;
         text-align: left;
         margin-right: 10px;
-        width: 300px;
+        width: 500px;
     }
 
     .item-container p {
-        width: 100%;
+        width: 500px;
         height: 50px;
         box-sizing: inline-box;
         margin-left: 20px;
@@ -87,7 +87,7 @@
         display: flex;
         flex-direction: row;  
         justify-content: flex-start; 
-        margin-left: 285px; 
+        margin-left: 500px; 
         margin-top: 25px;
     }
 

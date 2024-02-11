@@ -6,8 +6,8 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Users</h2>
+    <div class="col-md-2">
+        <h2>Users</h2><br>
         {% for customer in customers %}
             <p>{{ customer.user.username }} - Customer</p>
         {% endfor %}
@@ -21,15 +21,95 @@
             <p>{{ manager.user.username }} - Manager</p>
         {% endfor %}
     </div>
-    <div class="col-md-4">
+    <div class="col-md-10">
         <h2>Modules</h2>
-        <p>
-            Module 1
-        </p>
-        <p>
-            Module 2
-        </p>
-    </div>
+        <div class=content>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Vendor
+                        </th>
+                        <th>
+                            Customer
+                        </th>
+                        <th>
+                            Delivery Person
+                        </th>
+                        <th>
+                            System Manager
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <ul>
+                            <p>&#10004; Add Food Item<p>
+                            <p>&#10004; Update Food Item<p>
+                            <p>&#10004; Delete Food Item<p>
+                            <p>&#10004; View and Confirm Order<p>
+                            <p>&#10004; Update Order Status<p>
+                            <p>&#10004; View Order History<p>
+                            <p>&#10004; View Revenue<p>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <p>Browse Menu<p>
+                            <p>Add to Cart<p>
+                            <p>Payment and Checkout<p>
+                            <p>View Order Status<p>
+                            <p>View Order History<p>
+                            <p>View Total Spent<p>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <p>Select and Confirm Order<p>
+                            <p>Update Delivery Status<p>
+                            <p>View Delivery History<p>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <p>&#10004; View Customer<p>
+                            <p>&#10004; View Vendorm<p>
+                            <p>&#10004; View Delivery Person<p>
+                            <p>&#10004; View Sales Report<p>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
 </div>
+
+<style>
+
+    .content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 60px;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    th {
+        border: 2px solid #000000;
+        text-align: center;
+        padding: 10px;
+    }
+
+    td {
+        border: 2px solid #000000;
+        text-align: left;
+        padding: 10px;
+    }
+</style>
 
 {% endblock %}

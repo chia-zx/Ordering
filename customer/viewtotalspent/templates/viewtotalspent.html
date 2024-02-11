@@ -1,7 +1,35 @@
-{% extends "base.html" %}  <!-- Update this path to your base layout template -->
+{% extends "app/layout.html" %}
 {% block content %}
-<div class="container">
-    <h1>Total Spent</h1>
-    <p>{{ message }}</p>
+<div class="customertotalspent">
+    <h2>Customer Total Spent</h2>
+    <h3><strong>You Spent: RM {{ customer_spent }}</strong></h3>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class="item-container">
+                <strong>ID: </strong> {{ order.order_id }} <br>
+                <strong>Date: </strong> {{ order.order_date }} <br>
+                <strong>Total: </strong> RM {{ order.order_totalprice }} <br>
+            </div>
+        {% endfor %}
+    {% else %}
+        <br><h4><strong>No Completed Orders for this customer.</strong></h4>
+    {% endif %}
 </div>
+
+<style>
+    h4 {
+        color: red;
+    }
+
+    .item-container {
+        border: 3px solid black;
+        margin: 35px;
+        overflow: hidden; /* Ensure that the box wraps around its content */
+        padding: 20px;
+        font-size: 17px;
+    }
+
+</style>
+
 {% endblock %}

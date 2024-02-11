@@ -9,12 +9,18 @@
             <div class = 'item-container'>
                 <strong>ID : </strong> {{ order.order_id }} <br>
                 <strong>Date : </strong> {{ order.order_date }} <br>
-                <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
-                <strong>Customer : </strong> {{ order.customer_id }} <br>
-                <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
+                <strong>Total Price: </strong> RM {{ order.order_totalprice }} <br>
+                <br>
+                <strong>Customer ID : </strong> {{ order.customer_id }} <br>
+                <strong>Delivery Person ID : </strong> {{ order.deliveryperson_id }} <br>
                 <br>
                 <strong>Status : </strong> {{ order.order_status }} <br>
 
+                <form method="POST" action="{% url 'pendingOrderDetail' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                    <button type="submit" class="view-button">View</button>
+                </form>
                 <form method="POST" action="{% url 'acceptOrderForm' %}">
                     {% csrf_token %}
                     <input type="hidden" name="order_id" value="{{ order.order_id }}">
@@ -58,7 +64,7 @@
         font-size: 17px;
     }
 
-    .accept-button {
+    .view-button {
         background-color: #3498db;
         color: white;
         padding: 5px 10px;
@@ -70,8 +76,24 @@
         width: 80px;
         height: 35px;
     }
-    .accept-button:hover {
+    .view-button:hover {
         background-color: #2980b9;
+    }
+
+    .accept-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .accept-button:hover {
+        background-color: #45a049;
     }
 
     .reject-button {

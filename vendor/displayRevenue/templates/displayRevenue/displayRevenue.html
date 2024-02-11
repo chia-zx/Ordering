@@ -31,9 +31,15 @@
     {% if orders %}
         {% for order in orders %}
             <div class=item-container>
-                <strong>ID : </strong> {{ order.order_id }} <br>
+                <strong>Order ID : </strong> {{ order.order_id }} <br>
                 <strong>Date : </strong> {{ order.order_date }} <br>
-                <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+                <strong>Total Price: </strong> RM {{ order.order_totalprice }} <br>
+
+                <form method="POST" action="{% url 'revenueOrderDetail'%}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                    <button type="submit" class="view-button">View</button>
+                </form>
             </div>
         {% endfor %}
     {% else %}
@@ -42,18 +48,45 @@
 </div>
 
 <style>
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .top h1 {
+        margin: 35px;
+    }
+
     h4 {
+        margin: 35px;
         color: red;
     }
 
     .item-container {
         border: 3px solid black;
         margin: 35px;
-        overflow: hidden; /* Ensure that the box wraps around its content */
+        overflow: hidden; 
         padding: 20px;
         font-size: 17px;
     }
 
+    .view-button {
+        background-color: #3498db;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .view-button:hover {
+        background-color: #2980b9;
+    }
 </style>
 
 {% endblock %}

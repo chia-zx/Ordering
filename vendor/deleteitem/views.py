@@ -1,7 +1,6 @@
 from datetime import datetime
 from django.shortcuts import redirect, render
 from app.models import Food
-from django.contrib import messages
 
 def deleteitem_form(request):
     if request.method == 'POST':
@@ -24,6 +23,7 @@ def deleteitem_confirmation(request):
             food.delete()
             context = {
                 'year': datetime.now().year,
-                'food' : food
+                'food' : food,
+                'food_id': food_id
             }
             return render(request, 'deleteitem/deleteitemconfirmation.html', context)

@@ -1,26 +1,66 @@
 {% extends "app/layout.html" %}
 {% block content %}
-<div class="container">
-    <h1>Order Status</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Date</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for order in orders %}
-            <tr>
-                <td>{{ order.order_id }}</td>
-                <td>{{ order.order_date|date:"Y-m-d H:i" }}</td>
-                <td>{{ order.get_status_display }}</td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="3">No orders found.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="all-order">
+    <h2>Customer Order Status</h2><br>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class = 'item-container'>
+                <strong>Order ID : </strong> {{ order.order_id }} <br>
+                <strong>Date : </strong> {{ order.order_date }} <br>
+                <strong>Total : </strong>  {{ order.order_totalprice }} <br>
+                <strong>Delivery Person ID : </strong> {{ order.deliveryperson_id }} <br>
+                <br>
+                <strong>Order Status : </strong> {{ order.order_status }} <br>
+            </div>
+        {% endfor %}
+    {% else %}
+        <br><h4><strong>No Order found.</strong><h4>
+    {% endif %}
 </div>
+
+<style>
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .top h1 {
+        margin: 35px;
+    }
+
+    h4 {
+        color: red;
+    }
+
+    .add-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin-top: 60px;
+        margin-right: 35px;
+        border: none;
+        width: 110px;
+        height: 50px;
+    }
+    .add-button:hover {
+        background-color: #45a049;
+    }
+
+    .item-container {
+        border: 3px solid black;
+        margin: 35px;
+        overflow: hidden; /* Ensure that the box wraps around its content */
+        padding: 20px;
+        font-size: 17px;
+    }
+
+</style>
+
 {% endblock %}

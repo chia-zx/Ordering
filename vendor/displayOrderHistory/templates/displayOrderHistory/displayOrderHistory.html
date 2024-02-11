@@ -1,29 +1,40 @@
 {% extends "app/layout.html" %}
 {% block content %}
 <div class="all-order">
-    <h2>Order History</h2><br>
+    <div class=top>
+        <h1>Order History</h1>
+    </div>
 
-    <form method="GET" action="{% url 'displayOrderHistory' %}">
-        <label for="order_status">Sort by Order Status:</label>
-        <select name="order_status" id="order_status">
-            <option value="" {% if not request.GET.order_status %}selected{% endif %}>All</option>
-            <option value="Completed" {% if request.GET.order_status == 'Completed' %}selected{% endif %}>Completed</option>
-            <option value="Cancelled" {% if request.GET.order_status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
-            <option value="Rejected" {% if request.GET.order_status == 'Rejected' %}selected{% endif %}>Rejected</option>
-        </select>
-        <button type="submit">Sort</button>
-    </form>
+    <div class="sort">
+        <form method="GET" action="{% url 'displayOrderHistory' %}">
+            <label for="order_status">Sort by Order Status:</label>
+            <select name="order_status" id="order_status">
+                <option value="" {% if not request.GET.order_status %}selected{% endif %}>All</option>
+                <option value="Completed" {% if request.GET.order_status == 'Completed' %}selected{% endif %}>Completed</option>
+                <option value="Cancelled" {% if request.GET.order_status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+                <option value="Rejected" {% if request.GET.order_status == 'Rejected' %}selected{% endif %}>Rejected</option>
+            </select>
+            <button type="submit">Sort</button>
+        </form>
+    </div>
 
     {% if orders %}
         {% for order in orders %}
             <div class = 'item-container'>
                 <strong>ID : </strong> {{ order.order_id }} <br>
                 <strong>Date : </strong> {{ order.order_date }} <br>
-                <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+                <strong>Total Price: </strong> RM {{ order.order_totalprice }} <br>
+                <br>
                 <strong>Customer : </strong> {{ order.customer_id }} <br>
                 <strong>Delivery Person : </strong> {{ order.deliveryperson_id }} <br>
                 <br>
                 <strong>Status : </strong> {{ order.order_status }} <br>
+
+                <form method="POST" action="{% url 'orderHistoryDetail' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                    <button type="submit" class="view-button">View</button>
+                </form>
             </div>
         {% endfor %}
     {% else %}
@@ -45,24 +56,12 @@
     }
 
     h4 {
+        margin: 35px;
         color: red;
     }
 
-    .add-button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 5px 10px;
-        text-align: center;
-        font-size: 15px;
-        float: right;  
-        margin-top: 60px;
-        margin-right: 35px;
-        border: none;
-        width: 110px;
-        height: 50px;
-    }
-    .add-button:hover {
-        background-color: #45a049;
+    .sort {
+        margin-left: 35px;
     }
 
     .item-container {
@@ -71,6 +70,22 @@
         overflow: hidden; /* Ensure that the box wraps around its content */
         padding: 20px;
         font-size: 17px;
+    }
+
+    .view-button {
+        background-color: #3498db;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .view-button:hover {
+        background-color: #2980b9;
     }
 
 </style>

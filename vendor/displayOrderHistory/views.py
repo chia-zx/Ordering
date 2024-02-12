@@ -1,5 +1,4 @@
 from datetime import datetime
-from django.views.generic import ListView
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from app.models import Order, OrderItem, Vendor

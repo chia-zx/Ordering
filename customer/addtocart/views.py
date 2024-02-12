@@ -11,7 +11,7 @@ def add_to_cart(request):
         food = get_object_or_404(Food, pk=food_id)
 
         if food.food_available <= 0:
-            message = 'sorry, Food is not available'
+            message = 'Sorry, Food is not available'
             context={
                 'message': message,
                 'year': datetime.now().year,

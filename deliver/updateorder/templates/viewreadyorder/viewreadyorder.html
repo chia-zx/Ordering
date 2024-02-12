@@ -1,0 +1,120 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="all-order">
+    <div class=top>
+        <h1>Order Status</h1>
+    </div>
+    {% if orders %}
+        {% for order in orders %}
+            <div class = 'item-container'>
+                <strong>ID : </strong> {{ order.order_id }} <br>
+                <strong>Date : </strong> {{ order.order_date }} <br>
+                <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+                <br>
+                <strong>Customer Location : </strong> {{ order.customer_id.customer_address }} <br>
+                
+                
+                <br>
+                <strong>Status : </strong> {{ order.order_status }} <br>
+
+                <form method="POST" action="{% url 'readyorrderdetail' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                    <button type="submit" class="view-button">View</button>
+                </form>
+
+                <form method="POST" action="{% url 'completeform' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                    <button type="submit" class="complete-button">Done</button>
+                </form>
+                <form method="POST" action="{% url 'cancelform' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                    <button type="submit" class="cancel-button">Cancel</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h4><strong>No Ready orders at this moment.</strong><h4>
+    {% endif %}
+</div>
+
+<style>
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .top h1 {
+        margin: 35px;
+    }
+
+    h4 {
+        margin: 35px;
+        color: red;
+    }
+
+    .item-container {
+        border: 3px solid black;
+        margin: 35px;
+        overflow: hidden; /* Ensure that the box wraps around its content */
+        padding: 20px;
+        font-size: 17px;
+    }
+
+    .view-button {
+        background-color: #3498db;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .view-button:hover {
+        background-color: #2980b9;
+    }
+
+    .complete-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .complete-button:hover {
+        background-color: #45a049;
+    }
+
+    .cancel-button {
+        background-color: #e74c3c;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin: 10px;
+        border: none;
+        width: 80px;
+        height: 35px;
+    }
+    .cancel-button:hover {
+        background-color: #c0392b;
+    }
+
+
+</style>
+
+{% endblock %}

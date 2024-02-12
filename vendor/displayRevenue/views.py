@@ -64,38 +64,6 @@ def displayRevenue(request):
         }
         return render(request, 'displayRevenue/displayRevenue.html', context)
 
-def calculate_revenue(vendor, getYear, intMonth):
-    complete_orderid = OrderItem.objects.filter(
-        food_id__vendor_id=vendor, 
-        order_id__order_status='Completed',
-    ).values_list('order_id', flat=True)
-
-    if intMonth or getYear:
-        complete_orderid = OrderItem.objects.filter(
-            food_id__vendor_id=vendor, 
-            order_id__order_status='Completed',
-            order_id__order_date__year=getYear if getYear else None,
-            order_id__order_date__month=intMonth if intMonth else None
-        ).values_list('order_id', flat=True)
-    
-    total_revenue = OrderItem.objects.filter(
-        food_id__vendor_id=vendor,
-        order_id__in=complete_orderid  # Filter by completed orders
-    ).aggregate(Sum('orderitem_totalprice'))['orderitem_totalprice__sum'] or 0
-    total_revenue = "{:.2f}".format(total_revenue)
-
-    vendor.vendor_revenue = total_revenue
-    vendor.save()
-
-    orders = Order.objects.filter(
-        order_id__in = complete_orderid
-    )
-
-    return {
-        'total_revenue': total_revenue,
-        'orders': orders,
-    }
-
 def displayRevenueOrderDetail(request):
     if request.method == 'POST':
         orderid = request.POST.get('order_id')

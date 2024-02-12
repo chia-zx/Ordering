@@ -35,6 +35,10 @@ from customer.paymentandcheckout import views as paymentandcheckout_views
 from customer.vieworderstatus import views as vieworderstatus_views
 from customer.vieworderhistory import views as vieworderhistory_views
 from customer.viewtotalspent import views as  viewtotalspent_views
+from delivery.selectorders import views as selectorders_views
+from delivery.viewhistory import views as viewhistory_views
+from delivery.updateorder import views as updateorder_views
+
 
 
 admin.autodiscover()
@@ -97,4 +101,16 @@ urlpatterns = [
     re_path(r'^vieworderstatus', vieworderstatus_views.customer_order_status, name='vieworderstatus'),
     re_path(r'^vieworderhistory', vieworderhistory_views.customer_order_history, name='vieworderhistory'),
     re_path(r'^viewtotalspent', viewtotalspent_views.customer_total_spent, name='viewtotalspent'),
+   
+    # Delivery person
+    re_path(r'^selectorders$', selectorders_views.displayReadyOrder, name='selectorders'),
+    re_path(r'^viewhistory$', viewhistory_views.viewhistory, name='viewhistory'),
+    re_path(r'^updatestatus$', updateorder_views.update_status, name='updatestatus'),
+    re_path(r'^viewreadyorder$', updateorder_views.ViewReadyOrder, name='viewreadyorder'),
+    re_path(r'^readyorderdetail$', updateorder_views.ViewReadyOrderDetail, name='readyorderdetail'),
+    re_path(r'^completeform$', updateorder_views.complete_form, name='completeform'),
+    re_path(r'^completeconfirmation$', updateorder_views.complete_confirmation, name='completeconfirmation'),
+    re_path(r'^cancelform$', updateorder_views.cancel_form, name='cancelform'),
+    re_path(r'^cancelconfirmation$', updateorder_views.cancel_confirmation, name='cancelconfirmation'),
+
 ]

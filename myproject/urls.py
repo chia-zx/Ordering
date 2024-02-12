@@ -92,7 +92,7 @@ urlpatterns = [
     # Customer
     re_path(r'^browsemenu', browsemenu_views.display_menu, name='browsemenu'),
     re_path(r'^addtocart', addtocart_views.add_to_cart, name='addtocart'),
-    re_path(r'^paymentandcheckout', paymentandcheckout_views.checkout, name='checkout'),
+    re_path(r'^checkout', paymentandcheckout_views.checkout, name='checkout'),
     re_path(r'^paymentandcheckout_confirmation', paymentandcheckout_views.checkout_confirmation,name='paymentandcheckout_confirmation'),
     re_path(r'^vieworderstatus', vieworderstatus_views.customer_order_status, name='vieworderstatus'),
     re_path(r'^vieworderhistory', vieworderhistory_views.customer_order_history, name='vieworderhistory'),

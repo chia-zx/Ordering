@@ -1,8 +1,8 @@
 {% extends "app/layout.html" %}
 {% block content %}
-<div class="formadditem">
+<div class="formcustomerdetails">
     <h2>Update Your Details</h2>
-    <form class="additemsubmission" action="{% url 'paymentandcheckout_confirmation' %}" method="POST">
+    <form class="customerdetailssubmission" action="{% url 'paymentandcheckout_confirmation' %}" method="POST">
         {% csrf_token %}
         {% for field in form %}
         <div class="form-container">

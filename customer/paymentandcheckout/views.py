@@ -8,13 +8,10 @@ from app.forms import CustomerForm
 
 @login_required
 def checkout(request):
-    form = CustomerForm
+    form = CustomerForm()
     with transaction.atomic():
         customer = request.user.customer  # Adjust according to how you retrieve the Customer instance
         cart = Cart.objects.filter(customer_id=customer).first()
-
-        if not cart:
-            return render(request, 'error.html', {'message': 'No cart found.'})
 
         order = Order.objects.create(
             customer_id=customer,
@@ -43,7 +40,7 @@ def checkout(request):
 
         payment, created = Payment.objects.get_or_create(
             order_id=order,
-            defaults={'payment_status': 'Pending'}
+            defaults={'payment_status': 'Success'}
         )
 
     context = {
@@ -54,6 +51,8 @@ def checkout(request):
         'form': form
     }
 
+    context['user'] = request.user
+
     return render(request, 'paymentandcheckout.html', context)
 
 @login_required
@@ -63,11 +62,14 @@ def checkout_confirmation(request):
         form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
             form.save()
-            # Redirect to a confirmation page with a success message
-            return render(request, 'paymentandcheckout_confirmation.html', {
-                'message': 'Your details have been updated successfully.'
-            })
-    else:
-        form = CustomerForm(instance=customer)
-    
-    return render(request, 'paymentandcheckout_confirmation.html', {'form': form, 'year': datetime.now().year})
+            cart = Cart.objects.filter(customer_id=customer).first()
+            if cart:
+                CartItem.objects.filter(cart_id=cart).delete()
+                cart.delete()
+            payment = Payment.objects.filter(order_id__customer_id=customer).order_by('-payment_date').first()
+            context = {
+                'payment': payment,
+                'form': form,
+                'year': datetime.now().year
+         }
+            return render(request, 'paymentandcheckout_confirmation.html', context)

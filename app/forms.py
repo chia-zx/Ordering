@@ -31,9 +31,9 @@ class Itemform(forms.ModelForm):
 
 
 class CustomerForm(forms.ModelForm):
-    customer_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    customer_address = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    customer_phone = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    customer_name = forms.CharField()
+    customer_address = forms.CharField()
+    customer_phone = forms.CharField()
 
     class Meta:
         model = Customer

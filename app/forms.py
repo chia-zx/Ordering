@@ -5,7 +5,7 @@ Definition of forms.
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
-from app.models import Food
+from app.models import Food,Customer
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -28,3 +28,14 @@ class Itemform(forms.ModelForm):
     class Meta:
         model = Food
         fields = ['food_name', 'food_description', 'food_price', 'food_available']
+
+
+class CustomerForm(forms.ModelForm):
+    customer_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    customer_address = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    customer_phone = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Customer
+        fields = ['customer_name', 'customer_address', 'customer_phone']
+

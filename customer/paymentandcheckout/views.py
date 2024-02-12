@@ -4,9 +4,11 @@ from django.contrib.auth.decorators import login_required
 from app.models import Cart, CartItem, Order, OrderItem, Payment,Customer
 from decimal import Decimal
 from datetime import datetime
+from app.forms import CustomerForm
 
 @login_required
 def checkout(request):
+    form = CustomerForm
     with transaction.atomic():
         customer = request.user.customer  # Adjust according to how you retrieve the Customer instance
         cart = Cart.objects.filter(customer_id=customer).first()
@@ -49,58 +51,23 @@ def checkout(request):
         'order_items': cart_items,
         'payment': payment,
         'year': datetime.now().year,
+        'form': form
     }
 
     return render(request, 'paymentandcheckout.html', context)
-""""
+
+@login_required
 def checkout_confirmation(request):
-    customer = request.user.customer  # Retrieve the customer object linked to the request's user
+    customer = request.user.customer
     if request.method == 'POST':
-        # Retrieve form data
-        customer_name = request.POST.get('customer_name', '').strip()
-        customer_address = request.POST.get('customer_address', '').strip()
-        customer_phone = request.POST.get('customer_phone', '').strip()
-
-        # Update customer details if provided
-        if customer_name:
-            customer.customer_name = customer_name
-        if customer_address:
-            customer.customer_address = customer_address
-        if customer_phone:
-            customer.customer_phone = customer_phone
-        customer.save()
-
-    context = {
-        'year': datetime.now().year,
-
-    }
-    return render(request, 'paymentandcheckout_confirmation.html', context)
-
-"""
-def checkout_confirmation(request):
-    customer = request.user.customer  # Retrieve the customer object linked to the request's user
-    if request.method == 'POST':
-        # Retrieve form data
-        customer_name = request.POST.get('customer_name', '').strip()
-        customer_address = request.POST.get('customer_address', '').strip()
-        customer_phone = request.POST.get('customer_phone', '').strip()
-
-        # Update customer details if provided
-        customer.customer_name = customer_name if customer_name else customer.customer_name
-        customer.customer_address = customer_address if customer_address else customer.customer_address
-        customer.customer_phone = customer_phone if customer_phone else customer.customer_phone
-        customer.save()
-
-        # After saving, redirect to a confirmation page, or you could render a template directly
-        return render(request, 'paymentandcheckout_confirmation.html', {
-            'message': 'Your details have been updated successfully.',
-            'year': datetime.now().year,
-        })
-
-    # If it's a GET request, render the form with pre-filled customer details
-    return render(request, 'paymentandcheckout.html', {
-        'customer_name': customer.customer_name,
-        'customer_address': customer.customer_address,
-        'customer_phone': customer.customer_phone,
-        'year': datetime.now().year,
-    })
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            # Redirect to a confirmation page with a success message
+            return render(request, 'paymentandcheckout_confirmation.html', {
+                'message': 'Your details have been updated successfully.'
+            })
+    else:
+        form = CustomerForm(instance=customer)
+    
+    return render(request, 'paymentandcheckout_confirmation.html', {'form': form, 'year': datetime.now().year})

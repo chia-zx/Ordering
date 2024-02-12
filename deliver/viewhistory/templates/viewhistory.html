@@ -1,0 +1,75 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<div class="all-order">
+    <h2> Order History</h2><br>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class = 'item-container'>
+                <strong>Order ID : </strong> {{ order.order_id }} <br>
+                <strong>Date : </strong> {{ order.order_date }} <br>
+                <strong>Total : </strong>  {{ order.order_totalprice }} <br>
+                <strong>Vendor Name : </strong> {{vendor.vendor_name }} <br>
+                <strong>Customer Name : </strong> {{customer.customer_name }} <br>
+
+                <strong>Order ID : </strong> {{ order.order_id }} <br>
+                <strong>Date : </strong> {{ order.order_date }} <br>
+                <strong>Total : </strong>  {{ order.order_totalprice }} <br>
+                <strong>Vendor Name : </strong> {{vendor.vendor_name }} <br>
+                <strong>Customer Name : </strong> {{customer.customer_name }} <br>
+                
+            </div>
+        {% endfor %}
+    {% else %}
+        <br><h4><strong>No Order History found.</strong><h4>
+    {% endif %}
+</div>
+
+<style>
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .top h1 {
+        margin: 35px;}
+    h2 {
+        margin-top: 50px;
+        margin-left: 35px;
+    }
+
+    h4 {
+        color: red;
+    }
+
+    .add-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 15px;
+        float: right;  
+        margin-top: 60px;
+        margin-right: 35px;
+        border: none;
+        width: 110px;
+        height: 50px;
+    }
+    .add-button:hover {
+        background-color: #45a049;
+    }
+
+    .item-container {
+        border: 3px solid black;
+        margin: 35px;
+        overflow: hidden; /* Ensure that the box wraps around its content */
+        padding: 20px;
+        font-size: 17px;
+    }
+
+</style>
+
+{% endblock %}

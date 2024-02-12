@@ -15,6 +15,7 @@ def add_to_cart(request):
             message = 'sorry, Food is not available'
             context={
                 'message': message,
+                'year': datetime.now().year,
             }
             return render(request,'addtocart.html',context)
            

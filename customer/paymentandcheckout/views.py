@@ -12,6 +12,13 @@ def checkout(request):
     with transaction.atomic():
         customer = request.user.customer  # Adjust according to how you retrieve the Customer instance
         cart = Cart.objects.filter(customer_id=customer).first()
+        if not cart:
+            message = 'Please add items to your cart before checking out'
+            context={
+                'message': message,
+                'year': datetime.now().year,
+            }
+            return render(request,'addtocart.html',context)
 
         order = Order.objects.create(
             customer_id=customer,

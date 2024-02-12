@@ -1,39 +1,43 @@
 {% extends "app/layout.html" %}
 {% block content %}
 <div class=additemform>
-    <h2>Food added to cart!</h2>
-    <br>
-    <div class=content>
-        <div class=item-container>
-            <label for="food_id">Food  ID</label>
-            <span class="separator">:</span>
-            <p>{{ food.food_id }}</p>
-        </div>
-        <div class=item-container>
-            <label for="food_name">Name</label>
-            <span class="separator">:</span>
-            <p>{{ food.food_name }}</p>
-        </div>
-        <div class=item-container>
-            <label for="food_description">Description</label>
-            <span class="separator">:</span>
-            <p>{{ food.food_description }}</p>
-        </div>
-        <div class=item-container>
-            <label for="food_price">Price</label>
-            <span class="separator">:</span>
-            <p>{{ food.food_price }}</p>
-        </div>
-        <div class=item-container>
-            <label for="food_available">Available</label>
-            <span class="separator">:</span>
-            <p>{{ food.food_available }}</p>
-        </div>
+    {%if message %}
+        <h2>{{ message }}</h2>
+    {%else %}
+        <h2>Food added to cart!</h2>
         <br>
-    </div>
-        <div class=button-container>
-            <button class = "back-button" onclick="location.href='{% url 'browsemenu' %}'">Back</a>
+        <div class=content>
+            <div class=item-container>
+                <label for="food_id">Food  ID</label>
+                <span class="separator">:</span>
+                <p>{{ food.food_id }}</p>
+            </div>
+            <div class=item-container>
+                <label for="food_name">Name</label>
+                <span class="separator">:</span>
+                <p>{{ food.food_name }}</p>
+            </div>
+            <div class=item-container>
+                <label for="food_description">Description</label>
+                <span class="separator">:</span>
+                <p>{{ food.food_description }}</p>
+            </div>
+            <div class=item-container>
+                <label for="food_price">Price</label>
+                <span class="separator">:</span>
+                <p>{{ food.food_price }}</p>
+            </div>
+            <div class=item-container>
+                <label for="food_available">Available</label>
+                <span class="separator">:</span>
+                <p>{{ food.food_available }}</p>
+            </div>
+            <br>
         </div>
+    {% endif %}
+    <div class=button-container>
+        <button class = "back-button" onclick="location.href='{% url 'browsemenu' %}'">Back</a>
+    </div>
 </div>
 
 <style>

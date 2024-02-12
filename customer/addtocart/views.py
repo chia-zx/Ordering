@@ -9,11 +9,23 @@ def add_to_cart(request):
     if request.method == "POST":
         food_id = request.POST.get('food_id')
         food_price = Food.objects.get(pk=food_id).food_price
+        food = get_object_or_404(Food, pk=food_id)
+
+        if food.food_available <= 0:
+            message = 'sorry, Food is not available'
+            context={
+                'message': message,
+            }
+            return render(request,'addtocart.html',context)
+           
         user = request.user
         customer, _ = Customer.objects.get_or_create(user=user)
 
         # Retrieve the Food instance
         food = get_object_or_404(Food, pk=food_id)
+        # Decrement the food availability by 1
+        food.food_available -= 1
+        food.save()
 
         # Retrieve or create a Cart for the logged-in customer
         cart, created = Cart.objects.get_or_create(customer_id=customer, defaults={'customer_id': customer})

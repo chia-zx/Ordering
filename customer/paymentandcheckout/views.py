@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from app.models import Cart, CartItem, Order, OrderItem, Payment,Customer
+from app.models import Cart, CartItem, Order, OrderItem, Payment
 from decimal import Decimal
 from datetime import datetime
 from app.forms import CustomerForm
@@ -10,7 +10,7 @@ from app.forms import CustomerForm
 def checkout(request):
     form = CustomerForm()
     with transaction.atomic():
-        customer = request.user.customer  # Adjust according to how you retrieve the Customer instance
+        customer = request.user.customer  
         cart = Cart.objects.filter(customer_id=customer).first()
         if not cart:
             message = 'Please add items to your cart before checking out'
@@ -39,7 +39,7 @@ def checkout(request):
                 )
                 total_price += individual_total_price
             else:
-                # Handle the invalid data situation, maybe log it, or raise an error
+
                 raise ValueError(f"Invalid data for CartItem ID {item.cartitem_id}: quantity or total price is None.")
 
         order.order_totalprice = total_price

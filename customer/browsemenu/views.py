@@ -5,7 +5,6 @@ from app.models import Food, Vendor
 
 @login_required
 def display_menu(request):
-    # v_id = Vendor.objects.get(user=request.user)
     vendor_name = request.GET.get('vendor_name', '')
     foods = Food.objects.all()
     if vendor_name:

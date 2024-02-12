@@ -3,7 +3,7 @@
 <div class="all-order">
     <div class=top>
         <h1>Order #{{ order_id }}</h1>
-        <form method="POST" action="{% url 'displayPreparingOrder' %}">
+        <form method="POST" action="{% url 'viewreadyorder' %}">
             {% csrf_token %}
             <input type="hidden" name="order_id" value="{{ order_id }}">
             <button type="submit" class="back-button">Back</button>
@@ -12,7 +12,7 @@
     {% if orderitems %}
         {% for orderitem in orderitems %}
             <div class = 'item-container'>
-                <strong>Order ID : </strong> {{ orderitem.order_id }} <br>
+                <strong>OrderItem ID : </strong> {{ orderitem.order_id }} <br>
                 <strong>Food : </strong> {{ orderitem.food_id.food_name }} <br>
                 <strong>Quantity : </strong> {{ orderitem.orderitem_quantity }} <br>
                 <strong>Total Price : </strong> RM {{ orderitem.orderitem_totalprice }} <br>
@@ -21,9 +21,9 @@
                 <strong>Customer Phone Number : </strong> {{ orderitem.order_id.customer_id.customer_phone }} <br>
                 <strong>Customer Location : </strong> {{ orderitem.order_id.customer_id.customer_address }} <br>
                 <br>
-                <strong>Vendor Name : </strong>{{ orderitem.order_id.vendor_id.vendor_name }} <br>
-                <strong>Vendor Phone Number : </strong>{{ orderitem.order_id.vendor_id.vendor_phone }} <br>
-                <strong>Vendor Location : </strong>{{ orderitem.order_id.vendor_id.vendor_address }} <br>
+                <strong>Vendor Name : </strong>{{ orderitem.food_id.vendor_id.vendor_name }} <br>
+                <strong>Vendor Phone Number : </strong>{{ orderitem.food_id.vendor_id.vendor_phone }} <br>
+                <strong>Vendor Location : </strong>{{ orderitem.food_id.vendor_id.vendor_address }} <br>
 
             </div>
         {% endfor %}

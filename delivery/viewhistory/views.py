@@ -6,7 +6,7 @@ from datetime import datetime
 @login_required
 def viewhistory(request):
     
-    orders = Order.objects.filter(deliveryperson_id__user=request.user, delivery_status__in=['Completed', 'Cancelled']).order_by('-order_date')
+    orders = Order.objects.filter(deliveryperson_id__user=request.user, order_status__in=['Completed', 'Cancelled']).order_by('-order_date')
 
     context = {
         'orders': orders,

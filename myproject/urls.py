@@ -104,8 +104,8 @@ urlpatterns = [
    
     # Delivery person
     re_path(r'^selectorders$', selectorders_views.displayReadyOrder, name='selectorders'),
+    re_path(r'^acceptdeliveryconfirmation$', selectorders_views.acceptdelivery_confirmation, name='acceptdeliveryconfirmation'),
     re_path(r'^viewhistory$', viewhistory_views.viewhistory, name='viewhistory'),
-    re_path(r'^updatestatus$', updateorder_views.update_status, name='updatestatus'),
     re_path(r'^viewreadyorder$', updateorder_views.ViewReadyOrder, name='viewreadyorder'),
     re_path(r'^readyorderdetail$', updateorder_views.ViewReadyOrderDetail, name='readyorderdetail'),
     re_path(r'^completeform$', updateorder_views.complete_form, name='completeform'),

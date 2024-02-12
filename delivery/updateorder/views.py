@@ -1,28 +1,16 @@
 from datetime import datetime
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from app.models import DeliveryPerson, Order, OrderItem
 
 # Create your views here.
 
-
 @login_required
-def update_status(request):
-    delivery_person = DeliveryPerson.objects.get(user=request.user)
-    readydeliveryids = Order.objects.filter(deliveryperson_id=delivery_person, order_status='Ready').values_list('order_id', flat=True)
-    orders = Order.objects.filter(order_id__in=readydeliveryids)
-    context = {
-        'year': datetime.now().year,
-        'orders': orders,
-        'no_orders': not orders.exists()  # This will be True if there are no orders
-    }
-    return render(request, 'updateorder/completeconfirmation.html', context)
-    
 def ViewReadyOrder(request):
 
     delivery_person = DeliveryPerson.objects.get(user=request.user)
-    readydeliveryids = Order.objects.filter(delivery_person=delivery_person, order_status='Ready').values_list('id', flat=True)
-    orders = Order.objects.filter(id__in=readydeliveryids)
+    readydeliveryids = Order.objects.filter(deliveryperson_id=delivery_person, order_status='Delivering').values_list('order_id', flat=True)
+    orders = Order.objects.filter(order_id__in=readydeliveryids)
 
     context = {
         'year': datetime.now().year,
@@ -59,7 +47,7 @@ def complete_confirmation(request):
         order_id = request.POST.get('order_id')
         if order_id:
             order = Order.objects.get(pk=order_id)
-            order.order_status = 'Delivered' 
+            order.order_status = 'Completed' 
             order.save()
             context = {
                 'year': datetime.now().year,
@@ -85,6 +73,12 @@ def cancel_confirmation(request):
             order = Order.objects.get(pk=order_id)
             order.order_status = 'Cancelled'
             order.save()
+
+            orderitems = OrderItem.objects.filter(order_id=order_id)
+            for orderitem in orderitems:
+                food = orderitem.food_id
+                food.food_available += orderitem.orderitem_quantity
+                food.save()
 
             context = {
                 'year': datetime.now().year,

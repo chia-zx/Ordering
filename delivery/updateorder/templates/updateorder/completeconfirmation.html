@@ -6,7 +6,7 @@
     {% if no_orders %}
         <h4><strong>No Order Pending at this moment.</strong><h4>
             {% else %}
-                <h5>The order is delivered! The order status will be changed to <strong>Delivered</strong>.</h5>
+                <h5>The order is delivered! The order status will be changed to <strong>Completed</strong>.</h5>
                 <br>
                 <div class=content>
                     <div class=item-container>
@@ -27,12 +27,7 @@
                     <div class=item-container>
                         <label for="customer">Customer Name</label>
                         <span class="separator">:</span>
-                        <p>{{ order.customer_name }}</p>
-                    </div>
-                    <div class=item-container>
-                        <label for="deliveryperson">Vendor Name</label>
-                        <span class="separator">:</span>
-                        <p>{{ order.vendor_name }}</p>
+                        <p>{{ order.customer_id.customer_name }}</p>
                     </div>
                     <div class=item-container>
                         <label for="order_status">Status</label>

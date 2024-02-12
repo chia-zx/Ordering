@@ -8,16 +8,9 @@
             <div class = 'item-container'>
                 <strong>Order ID : </strong> {{ order.order_id }} <br>
                 <strong>Date : </strong> {{ order.order_date }} <br>
-                <strong>Total : </strong>  {{ order.order_totalprice }} <br>
-                <strong>Vendor Name : </strong> {{vendor.vendor_name }} <br>
-                <strong>Customer Name : </strong> {{customer.customer_name }} <br>
-
-                <strong>Order ID : </strong> {{ order.order_id }} <br>
-                <strong>Date : </strong> {{ order.order_date }} <br>
-                <strong>Total : </strong>  {{ order.order_totalprice }} <br>
-                <strong>Vendor Name : </strong> {{vendor.vendor_name }} <br>
-                <strong>Customer Name : </strong> {{customer.customer_name }} <br>
-                
+                <strong>Total : </strong>  RM {{ order.order_totalprice }} <br>
+                <strong>Customer Name : </strong> {{ order.customer_id.customer_name }} <br>
+                <strong>Order Status : </strong> {{ order.order_status }} <br>
             </div>
         {% endfor %}
     {% else %}

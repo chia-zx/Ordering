@@ -10,14 +10,13 @@
                 <strong>ID : </strong> {{ order.order_id }} <br>
                 <strong>Date : </strong> {{ order.order_date }} <br>
                 <strong>Total : </strong> RM {{ order.order_totalprice }} <br>
+                <br>
                 <strong>Customer Name : </strong> {{ order.customer_id.customer_name }} <br>
                 <strong>Customer Address : </strong> {{ order.customer_id.customer_address }} <br>
                 <strong>Customer Phone : </strong> {{ order.customer_id.customer_phone }} <br>
-                <strong>Vendor Name : </strong> {{ order.vendor_id.vendor_name }} <br>
-                <strong>Vendor Address : </strong> {{ order.vendor_id.vendor_address }} <br>
                 <br>
 
-                <form method="POST" action="{% url 'acceptOrderForm' %}">
+                <form method="POST" action="{% url 'acceptdeliveryconfirmation' %}">
                     {% csrf_token %}
                     <input type="hidden" name="order_id" value="{{ order.order_id }}">
                     <button type="submit" class="accept-button">Accept</button>
@@ -26,7 +25,7 @@
             </div>
         {% endfor %}
     {% else %}
-        <h4><strong>No Order Pending at this moment.</strong><h4>
+        <h4><strong>No Order Ready at this moment.</strong><h4>
     {% endif %}
 </div>
 

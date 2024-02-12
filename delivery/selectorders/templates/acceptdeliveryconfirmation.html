@@ -1,15 +1,15 @@
 {% extends "app/layout.html" %}
 {% block content %}
-<div class=cancelorderconfirmation>
-    <h2>Cancel Confirmation</h2>
+<div class=completeorderconfirmation>
+    <h2>Accept Confirmation</h2>
     <br>
-    <h5>The order is cancelled! The order status will be changed to <strong>Cancelled</strong>.</h5>
+    <h5>The order is accepted! The order status will be changed to <strong>Delivering</strong>.</h5>
     <br>
     <div class=content>
         <div class=item-container>
             <label for="order_id">Order  ID</label>
             <span class="separator">:</span>
-            <p>{{ order_id }}</p>
+            <p>{{ order.order_id }}</p>
         </div>
         <div class=item-container>
             <label for="order_date">Date</label>
@@ -22,9 +22,14 @@
             <p>RM {{ order.order_totalprice }}</p>
         </div>
         <div class=item-container>
-            <label for="customer">Customer Name</label>
+            <label for="customer">Customer ID</label>
             <span class="separator">:</span>
-            <p>{{ order.customer_id.customer_name }}</p>
+            <p>{{ order.customer_id }}</p>
+        </div>
+        <div class=item-container>
+            <label for="deliveryperson">Delivery Person ID</label>
+            <span class="separator">:</span>
+            <p>{{ order.deliveryperson_id }}</p>
         </div>
         <div class=item-container>
             <label for="order_status">Status</label>
@@ -34,7 +39,7 @@
     </div>
     <br>
     <div class=button-container>
-        <button class = "back-button" onclick="location.href='{% url 'viewreadyorder' %}'">Back</a>
+        <button class = "back-button" onclick="location.href='{% url 'selectorders' %}'">Back</a>
     </div>
 </div>
 

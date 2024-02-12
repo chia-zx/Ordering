@@ -39,8 +39,6 @@ from delivery.selectorders import views as selectorders_views
 from delivery.viewhistory import views as viewhistory_views
 from delivery.updateorder import views as updateorder_views
 
-
-
 admin.autodiscover()
 
 urlpatterns = [
